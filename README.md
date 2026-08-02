@@ -1,33 +1,33 @@
-# Scouting Engine V1
+# ScoutVision
 
-## Structură
+Professional Football Scouting Software
 
-- `databases/` - bazele originale
-- `engine/` - logica aplicației
-- `outputs/prepared/` - baze filtrate și curățate
-- `outputs/rankings/` - clasamente
-- `outputs/charts/` - grafice
-- `outputs/reports/` - rapoarte PDF
-- `templates/` - șabloane HTML/CSS
+## Current Version
 
-## Primul test
+ScoutVision v1.1
 
-1. Copiază `L3-France.xlsx` în `databases/`.
-2. Deschide terminalul în acest folder.
-3. Rulează:
+## Modules
 
-```bash
-python3 main.py
-```
+- Prepare Database
+- Score Engine
+- Rankings
+- Visualization Engine
 
-Rezultatul corect va afișa:
+## Roadmap
 
-```text
-Project structure is valid.
-```
+### v1.2
+- Player Cards
+- PDF Reports
 
-## Instalare biblioteci
+### v1.3
+- Dashboard
 
-```bash
-python3 -m pip install -r requirements.txt
-```
+### v1.4
+- Similar Players
+
+### v1.5
+- Club Fit Engine
+
+## Author
+
+Ionuț Buda
