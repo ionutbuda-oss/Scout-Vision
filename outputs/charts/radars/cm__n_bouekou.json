@@ -1,0 +1,29 @@
+{
+    "chart_type": "player_radar",
+    "player": "N. Bouekou",
+    "team": "Quevilly Rouen",
+    "position_group": "CM",
+    "age": 24,
+    "matches_played": 28,
+    "competition": "France National",
+    "performance_score": 78.3,
+    "recruitment_score": 76.8,
+    "categories": [
+        {
+            "name": "Distribution",
+            "score": 83.33
+        },
+        {
+            "name": "Progression",
+            "score": 88.33
+        },
+        {
+            "name": "Creativity",
+            "score": 63.33
+        },
+        {
+            "name": "Defensive Contribution",
+            "score": 73.33
+        }
+    ]
+}

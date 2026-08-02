@@ -1,0 +1,29 @@
+{
+    "chart_type": "player_radar",
+    "player": "A. Ntamack",
+    "team": "Dijon",
+    "position_group": "ST",
+    "age": 21,
+    "matches_played": 32,
+    "competition": "France National",
+    "performance_score": 70.5,
+    "recruitment_score": 73.5,
+    "categories": [
+        {
+            "name": "Finishing",
+            "score": 47.36
+        },
+        {
+            "name": "Box Threat",
+            "score": 91.39
+        },
+        {
+            "name": "Duels",
+            "score": 94.31
+        },
+        {
+            "name": "Link Play",
+            "score": 61.32
+        }
+    ]
+}

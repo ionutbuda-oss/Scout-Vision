@@ -1,0 +1,29 @@
+{
+    "chart_type": "player_radar",
+    "player": "R. Eh Hadari",
+    "team": "Valenciennes",
+    "position_group": "Winger",
+    "age": 19,
+    "matches_played": 19,
+    "competition": "France National",
+    "performance_score": 75.3,
+    "recruitment_score": 78.1,
+    "categories": [
+        {
+            "name": "Ball Carrying",
+            "score": 78.25
+        },
+        {
+            "name": "Chance Creation",
+            "score": 67.5
+        },
+        {
+            "name": "Goal Threat",
+            "score": 85.25
+        },
+        {
+            "name": "Combination Play",
+            "score": 60.25
+        }
+    ]
+}

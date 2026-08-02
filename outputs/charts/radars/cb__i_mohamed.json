@@ -1,0 +1,25 @@
+{
+    "chart_type": "player_radar",
+    "player": "I. Mohamed",
+    "team": "Metz",
+    "position_group": "CB",
+    "age": 22,
+    "matches_played": 30,
+    "competition": "France National",
+    "performance_score": 66.9,
+    "recruitment_score": 69.7,
+    "categories": [
+        {
+            "name": "Defending",
+            "score": 70.0
+        },
+        {
+            "name": "Build-up",
+            "score": 71.25
+        },
+        {
+            "name": "Progression",
+            "score": 56.25
+        }
+    ]
+}

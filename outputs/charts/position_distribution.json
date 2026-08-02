@@ -1,0 +1,12 @@
+{
+    "title": "Position Distribution",
+    "data": {
+        "AM": 6,
+        "CB": 12,
+        "CM": 9,
+        "DM": 13,
+        "FB_WB": 26,
+        "ST": 36,
+        "Winger": 20
+    }
+}

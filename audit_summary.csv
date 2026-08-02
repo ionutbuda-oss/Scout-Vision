@@ -1,0 +1,5 @@
+team,phase,successful_passes,nodes,edges,density
+Argentina,Group Stage,1030,11,95,0.8636363636363636
+Argentina,Knockout Stage,1417,11,93,0.8454545454545455
+France,Group Stage,816,11,93,0.8454545454545455
+France,Knockout Stage,1257,11,102,0.9272727272727272

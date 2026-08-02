@@ -1,0 +1,29 @@
+{
+    "chart_type": "player_radar",
+    "player": "E. Mouton",
+    "team": "Laval",
+    "position_group": "FB_WB",
+    "age": 22,
+    "matches_played": 28,
+    "competition": "France National",
+    "performance_score": 70.2,
+    "recruitment_score": 72.3,
+    "categories": [
+        {
+            "name": "Defending",
+            "score": 57.31
+        },
+        {
+            "name": "Progression",
+            "score": 92.31
+        },
+        {
+            "name": "Chance Creation",
+            "score": 61.83
+        },
+        {
+            "name": "Ball Carrying",
+            "score": 69.23
+        }
+    ]
+}

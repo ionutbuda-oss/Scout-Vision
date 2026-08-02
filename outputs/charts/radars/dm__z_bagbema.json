@@ -1,0 +1,25 @@
+{
+    "chart_type": "player_radar",
+    "player": "Z. Bagbema",
+    "team": "Caen",
+    "position_group": "DM",
+    "age": 22,
+    "matches_played": 17,
+    "competition": "France National",
+    "performance_score": 76.1,
+    "recruitment_score": 75.4,
+    "categories": [
+        {
+            "name": "Ball Winning",
+            "score": 69.62
+        },
+        {
+            "name": "Distribution",
+            "score": 75.96
+        },
+        {
+            "name": "Progression",
+            "score": 83.85
+        }
+    ]
+}
