@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build
+build/
+dist/
+
+# Excel temporary files
+~$*.xlsx
+
+# Generated outputs (keep folders only)
+outputs/**/*
+!outputs/.gitkeep
+!outputs/prepared/.gitkeep
+!outputs/rankings/.gitkeep
+!outputs/charts/.gitkeep
+!outputs/player_cards/.gitkeep
+!outputs/reports/.gitkeep
