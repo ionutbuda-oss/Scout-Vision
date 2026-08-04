@@ -29,4 +29,25 @@ COMPETENCIES = {
 
     }
 
+    ,
+
+    "DISTRIBUTION": {
+
+        "name": "Distribution",
+
+        "description":
+        "Ability to circulate possession accurately and consistently.",
+
+        "kpis": [
+
+            "Passes per 90",
+            "Accurate passes, %",
+
+            "Long passes per 90",
+            "Accurate long passes, %"
+
+        ]
+
+    }
+
 }
