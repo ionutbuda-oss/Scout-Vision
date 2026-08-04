@@ -6,12 +6,12 @@
     "age": 24,
     "matches_played": 28,
     "competition": "France National",
-    "performance_score": 78.3,
-    "recruitment_score": 76.8,
+    "performance_score": 76.9,
+    "recruitment_score": 78.3,
     "categories": [
         {
             "name": "Distribution",
-            "score": 83.33
+            "score": 83.89
         },
         {
             "name": "Progression",
@@ -19,11 +19,11 @@
         },
         {
             "name": "Creativity",
-            "score": 63.33
+            "score": 63.61
         },
         {
             "name": "Defensive Contribution",
-            "score": 73.33
+            "score": 71.67
         }
     ]
 }

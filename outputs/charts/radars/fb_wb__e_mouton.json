@@ -6,24 +6,24 @@
     "age": 22,
     "matches_played": 28,
     "competition": "France National",
-    "performance_score": 70.2,
-    "recruitment_score": 72.3,
+    "performance_score": 71.2,
+    "recruitment_score": 71.9,
     "categories": [
         {
             "name": "Defending",
-            "score": 57.31
+            "score": 57.12
         },
         {
             "name": "Progression",
-            "score": 92.31
+            "score": 92.12
         },
         {
             "name": "Chance Creation",
-            "score": 61.83
+            "score": 70.1
         },
         {
             "name": "Ball Carrying",
-            "score": 69.23
+            "score": 65.58
         }
     ]
 }

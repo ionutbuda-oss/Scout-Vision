@@ -4,260 +4,14 @@ import numpy as np
 import pandas as pd
 
 from engine.config import Settings
+from engine.scoring.profile_models import (
+    ROLE_MODELS,
+    iter_required_metrics,
+    validate_role_models,
+)
 
 
 TOP_N = 10
-
-ROLE_MODELS: dict[str, dict[str, dict[str, object]]] = {
-    "CB": {
-        "Defending": {
-            "weight": 0.45,
-            "metrics": {
-                "Defensive duels per 90": 0.20,
-                "Defensive duels won, %": 0.45,
-                "Interceptions per 90": 0.35,
-            },
-        },
-        "Build-up": {
-            "weight": 0.30,
-            "metrics": {
-                "Passes per 90": 0.20,
-                "Accurate passes, %": 0.25,
-                "Forward passes per 90": 0.30,
-                "Accurate forward passes, %": 0.25,
-            },
-        },
-        "Progression": {
-            "weight": 0.25,
-            "metrics": {
-                "Progressive passes per 90": 0.40,
-                "Accurate progressive passes, %": 0.25,
-                "Passes to final third per 90": 0.20,
-                "Accurate passes to final third, %": 0.15,
-            },
-        },
-    },
-    "FB_WB": {
-        "Defending": {
-            "weight": 0.25,
-            "metrics": {
-                "Defensive duels per 90": 0.25,
-                "Defensive duels won, %": 0.45,
-                "Interceptions per 90": 0.30,
-            },
-        },
-        "Progression": {
-            "weight": 0.25,
-            "metrics": {
-                "Progressive passes per 90": 0.35,
-                "Accurate progressive passes, %": 0.20,
-                "Passes to final third per 90": 0.25,
-                "Accurate passes to final third, %": 0.20,
-            },
-        },
-        "Chance Creation": {
-            "weight": 0.25,
-            "metrics": {
-                "Crosses per 90": 0.30,
-                "Accurate crosses, %": 0.25,
-                "xA per 90": 0.25,
-                "Assists per 90": 0.20,
-            },
-        },
-        "Ball Carrying": {
-            "weight": 0.25,
-            "metrics": {
-                "Successful attacking actions per 90": 0.25,
-                "Dribbles per 90": 0.30,
-                "Successful dribbles, %": 0.25,
-                "Offensive duels won, %": 0.20,
-            },
-        },
-    },
-    "DM": {
-        "Ball Winning": {
-            "weight": 0.35,
-            "metrics": {
-                "Defensive duels per 90": 0.25,
-                "Defensive duels won, %": 0.40,
-                "Interceptions per 90": 0.35,
-            },
-        },
-        "Distribution": {
-            "weight": 0.35,
-            "metrics": {
-                "Passes per 90": 0.25,
-                "Accurate passes, %": 0.25,
-                "Forward passes per 90": 0.25,
-                "Accurate forward passes, %": 0.25,
-            },
-        },
-        "Progression": {
-            "weight": 0.30,
-            "metrics": {
-                "Progressive passes per 90": 0.35,
-                "Accurate progressive passes, %": 0.20,
-                "Passes to final third per 90": 0.25,
-                "Accurate passes to final third, %": 0.20,
-            },
-        },
-    },
-    "CM": {
-        "Distribution": {
-            "weight": 0.30,
-            "metrics": {
-                "Passes per 90": 0.25,
-                "Accurate passes, %": 0.25,
-                "Forward passes per 90": 0.25,
-                "Accurate forward passes, %": 0.25,
-            },
-        },
-        "Progression": {
-            "weight": 0.30,
-            "metrics": {
-                "Progressive passes per 90": 0.30,
-                "Accurate progressive passes, %": 0.15,
-                "Passes to final third per 90": 0.30,
-                "Accurate passes to final third, %": 0.15,
-                "Through passes per 90": 0.10,
-            },
-        },
-        "Creativity": {
-            "weight": 0.25,
-            "metrics": {
-                "Smart passes per 90": 0.25,
-                "Accurate smart passes, %": 0.15,
-                "Through passes per 90": 0.20,
-                "xA per 90": 0.25,
-                "Assists per 90": 0.15,
-            },
-        },
-        "Defensive Contribution": {
-            "weight": 0.15,
-            "metrics": {
-                "Defensive duels won, %": 0.40,
-                "Interceptions per 90": 0.40,
-                "Defensive duels per 90": 0.20,
-            },
-        },
-    },
-    "AM": {
-        "Creativity": {
-            "weight": 0.40,
-            "metrics": {
-                "Smart passes per 90": 0.20,
-                "Accurate smart passes, %": 0.10,
-                "Through passes per 90": 0.20,
-                "xA per 90": 0.30,
-                "Assists per 90": 0.20,
-            },
-        },
-        "Progression": {
-            "weight": 0.20,
-            "metrics": {
-                "Progressive passes per 90": 0.25,
-                "Passes to final third per 90": 0.30,
-                "Accurate passes to final third, %": 0.20,
-                "Successful attacking actions per 90": 0.25,
-            },
-        },
-        "Ball Carrying": {
-            "weight": 0.20,
-            "metrics": {
-                "Dribbles per 90": 0.40,
-                "Successful dribbles, %": 0.30,
-                "Offensive duels won, %": 0.30,
-            },
-        },
-        "Goal Threat": {
-            "weight": 0.20,
-            "metrics": {
-                "Goals per 90": 0.25,
-                "xG per 90": 0.25,
-                "Shots per 90": 0.20,
-                "Shots on target, %": 0.15,
-                "Touches in box per 90": 0.15,
-            },
-        },
-    },
-    "Winger": {
-        "Ball Carrying": {
-            "weight": 0.30,
-            "metrics": {
-                "Successful attacking actions per 90": 0.25,
-                "Dribbles per 90": 0.35,
-                "Successful dribbles, %": 0.20,
-                "Offensive duels won, %": 0.20,
-            },
-        },
-        "Chance Creation": {
-            "weight": 0.30,
-            "metrics": {
-                "xA per 90": 0.30,
-                "Assists per 90": 0.20,
-                "Smart passes per 90": 0.15,
-                "Through passes per 90": 0.15,
-                "Crosses per 90": 0.10,
-                "Accurate crosses, %": 0.10,
-            },
-        },
-        "Goal Threat": {
-            "weight": 0.30,
-            "metrics": {
-                "Goals per 90": 0.25,
-                "xG per 90": 0.25,
-                "Shots per 90": 0.15,
-                "Shots on target, %": 0.15,
-                "Touches in box per 90": 0.20,
-            },
-        },
-        "Combination Play": {
-            "weight": 0.10,
-            "metrics": {
-                "Passes to final third per 90": 0.35,
-                "Accurate passes to final third, %": 0.25,
-                "Progressive passes per 90": 0.20,
-                "Accurate progressive passes, %": 0.20,
-            },
-        },
-    },
-    "ST": {
-        "Finishing": {
-            "weight": 0.35,
-            "metrics": {
-                "Goals per 90": 0.30,
-                "xG per 90": 0.25,
-                "Shots on target, %": 0.20,
-                "Goal conversion, %": 0.25,
-            },
-        },
-        "Box Threat": {
-            "weight": 0.25,
-            "metrics": {
-                "Touches in box per 90": 0.40,
-                "Shots per 90": 0.35,
-                "Successful attacking actions per 90": 0.25,
-            },
-        },
-        "Duels": {
-            "weight": 0.20,
-            "metrics": {
-                "Offensive duels per 90": 0.35,
-                "Offensive duels won, %": 0.65,
-            },
-        },
-        "Link Play": {
-            "weight": 0.20,
-            "metrics": {
-                "Assists per 90": 0.20,
-                "xA per 90": 0.20,
-                "Smart passes per 90": 0.15,
-                "Passes to final third per 90": 0.20,
-                "Accurate passes, %": 0.25,
-            },
-        },
-    },
-}
 
 
 def validate_columns(df: pd.DataFrame) -> None:
@@ -271,9 +25,8 @@ def validate_columns(df: pd.DataFrame) -> None:
         "Matches played",
     }
 
-    for role_model in ROLE_MODELS.values():
-        for category in role_model.values():
-            required.update(category["metrics"].keys())
+    validate_role_models()
+    required.update(iter_required_metrics())
 
     missing = required - set(df.columns)
 
@@ -410,20 +163,22 @@ def score_position_group(
             category_config["metrics"],
         )
 
-    performance = pd.Series(
-        0.0,
-        index=scored.index,
+    # Season Performance is the unweighted arithmetic mean of all
+    # position-specific competency scores. It describes balanced seasonal
+    # output without favouring any competency from the recruitment model.
+    scored["Performance Score"] = (
+        scored[category_columns].mean(axis=1).round(1)
     )
 
+    # Scout Score is the weighted mean of competency scores using the
+    # position-model competency weights from ROLE_MODELS.
+    scout_score = pd.Series(0.0, index=scored.index)
     for category_name, category_config in model.items():
-        performance += (
+        scout_score += (
             scored[f"{category_name} Score"]
             * float(category_config["weight"])
         )
-
-    scored["Performance Score"] = (
-        performance.round(1)
-    )
+    scored["Scout Score"] = scout_score.round(1)
     scored["Age Potential Score"] = (
         age_potential_score(
             scored["Age"]
@@ -435,19 +190,18 @@ def score_position_group(
         ).round(1)
     )
 
-    scored["Recruitment Score"] = (
-        scored["Performance Score"] * 0.80
-        + scored["Age Potential Score"] * 0.15
-        + scored["Sample Confidence"] * 0.05
-    ).round(1)
+    # Backward-compatible alias. Recruitment Score must remain numerically
+    # identical to Scout Score in ScoutVision v1.0. Age Potential and Sample
+    # Confidence are separate contextual indicators and do not alter ranking.
+    scored["Recruitment Score"] = scored["Scout Score"]
 
     scored["Recommendation"] = scored[
-        "Recruitment Score"
+        "Scout Score"
     ].apply(recommendation_label)
 
     scored = scored.sort_values(
         by=[
-            "Recruitment Score",
+            "Scout Score",
             "Performance Score",
             "Age",
             "Matches played",
@@ -479,6 +233,7 @@ def score_position_group(
         "Age Profile",
         "Matches played",
         "Performance Score",
+        "Scout Score",
         "Recruitment Score",
         "Age Potential Score",
         "Sample Confidence",
@@ -588,7 +343,7 @@ def score_players(
         all_ranked["Age"] <= 21
     ].sort_values(
         by=[
-            "Recruitment Score",
+            "Scout Score",
             "Performance Score",
         ],
         ascending=False,
@@ -640,7 +395,7 @@ def score_players(
         position_group: {
             "player": ranking.iloc[0]["Player"],
             "score": float(
-                ranking.iloc[0]["Recruitment Score"]
+                ranking.iloc[0]["Scout Score"]
             ),
             "count": len(ranking),
         }

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ player.name }} | ScoutVision Recruitment Report</title>
+  <link rel="stylesheet" href="recruitment_report.css">
+</head>
+<body>
+  <section class="report-page cover-page">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">SV</span><span>SCOUTVISION</span></div>
+      <div class="document-type">RECRUITMENT REPORT</div>
+    </header>
+
+    <div class="cover-hero">
+      <div class="identity">
+        <div class="eyebrow">{{ player.position_group }} POSITION MODEL</div>
+        <h1>{{ player.name }}</h1>
+        <div class="role">{{ player.position }}</div>
+        <div class="meta"><span>{{ player.team }}</span><span>{{ player.competition }}</span></div>
+      </div>
+      <div class="score-panel">
+        <span>SCOUT SCORE</span>
+        <strong>{{ score.display }}</strong>
+        <em>{{ score.label }}</em>
+        <div class="score-track"><i style="width: {{ score.value }}%"></i><b style="left: {{ score.value }}%"></b></div>
+        <div class="scale"><span>0</span><span>50</span><span>100</span></div>
+
+{% if player.position_rank and player.position_pool %}
+<div class="score-ranking">
+    <span>TOP {{ player.top_percent }}%</span>
+    <strong>Rank {{ player.position_rank }} / {{ player.position_pool }}</strong>
+</div>
+{% endif %}
+      </div>
+    </div>
+
+    <div class="executive-summary">
+      <div>
+        <span>EXECUTIVE SUMMARY</span>
+        <p>{{ executive_summary }}</p>
+      </div>
+      
+    </div>
+
+    <div class="facts">
+      <div><span>AGE</span><strong>{{ player.age }}</strong></div>
+      <div><span>FOOT</span><strong>{{ player.foot }}</strong></div>
+      <div><span>MINUTES</span><strong>{{ player.minutes }}</strong></div>
+      <div><span>MATCHES</span><strong>{{ player.matches }}</strong></div>
+      <div><span>SEASON PERFORMANCE</span><strong>{{ score.performance }}</strong></div>
+    </div>
+
+    <div class="cover-profile">
+      <article><h2>POSITION PROFILE</h2><img src="{{ radar_uri }}" alt="Radar profile"></article>
+      <article class="competency-panel"><h2>COMPETENCY PROFILE</h2>
+        {% for item in competencies %}
+        <div class="competency"><div><span>{{ item.name }}</span><strong>{{ item.score_display }}</strong></div><div class="bar"><i style="width: {{ item.score }}%"></i></div></div>
+        {% endfor %}
+      </article>
+    </div>
+
+    <div class="cover-insights">
+      <div><span>PLAYER DNA</span><strong>{{ strength.name }}</strong><em>{{ strength.score_display }}</em></div>
+      <div class="development"><span>DEVELOPMENT PRIORITY</span><strong>{{ development.name }}</strong><em>{{ development.score_display }}</em></div>
+    </div>
+    <footer><span>ScoutVision Report v2.0</span><span>Data source: Wyscout</span></footer>
+  </section>
+
+  <section class="report-page analysis-page">
+    <header class="page-header">
+      <div class="brand small"><span class="brand-mark">SV</span><span>SCOUTVISION</span></div>
+      <div><span>POSITION ANALYSIS</span><strong>{{ player.name }}</strong></div>
+    </header>
+
+    <div class="analysis-top">
+      <article class="analysis-radar"><h2>POSITION PROFILE</h2><img src="{{ radar_uri }}" alt="Radar profile"></article>
+      <article class="analysis-summary"><h2>COMPETENCY BREAKDOWN</h2>
+        {% for item in competencies %}
+        <div class="analysis-competency">
+          <div><span>{{ item.name }}</span><strong>{{ item.score_display }}</strong></div>
+          <div class="bar"><i style="width: {{ item.score }}%"></i></div>
+          <small>Model weight: {{ item.weight }}</small>
+        </div>
+        {% endfor %}
+      </article>
+    </div>
+
+    <div class="section-title"><h2>KEY PERFORMANCE INDICATORS</h2><span>Real values and League Percentile within the position group</span></div>
+    <div class="kpi-grid kpi-count-{{ kpi_groups|length }}">
+      {% for group in kpi_groups %}
+      <article class="kpi-card">
+        <header><span>{{ loop.index }}</span><strong>{{ group.name }}</strong><em>{{ group.weight }}</em></header>
+        {% for metric in group.metrics %}
+        <div class="metric-row">
+          <div class="metric-title" title="{{ metric.source_name }}">{{ metric.name }}</div>
+          <strong>{{ metric.value }}</strong>
+          <em>{{ metric.weight }}</em>
+          <div class="percentile">
+            {% if metric.percentile is not none %}
+            <span><i style="width: {{ metric.percentile }}%"></i></span><b><small>LEAGUE PERCENTILE</small>{{ metric.percentile }}</b>
+            {% else %}
+            <span class="unavailable"></span><b>-</b>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="method-strip">
+      <div><span>MODEL</span><strong>{{ player.position_group }}</strong></div>
+      <div><span>SCOUT SCORE</span><strong>{{ score.display }}</strong></div>
+      <div class="confidence-cell"><span>SAMPLE CONFIDENCE</span><strong>{{ confidence.label }}</strong><em>{{ confidence.display }} / 100</em></div>
+      <div><span>RECOMMENDATION</span><strong>{{ player.recommendation }}</strong></div>
+    </div>
+    <footer><span>ScoutVision Position Model</span><span>Page 2 / 2</span></footer>
+  </section>
+</body>
+</html>

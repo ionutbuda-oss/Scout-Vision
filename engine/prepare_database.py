@@ -19,54 +19,62 @@ POSITION_GROUP_ORDER = [
 ]
 
 
-def normalize_position_text(position: object) -> set[str]:
-    if pd.isna(position):
-        return set()
+def primary_position_token(position: object) -> str:
+    """Return the first Wyscout position token as the primary position.
 
-    return {
-        item.strip().upper()
-        for item in str(position).split(",")
-        if item.strip()
-    }
+    Wyscout lists positions in priority order. ScoutVision therefore maps a
+    player from the first non-empty token instead of searching all secondary
+    positions using a fixed priority hierarchy.
+    """
+
+    if pd.isna(position):
+        return ""
+
+    for item in str(position).split(","):
+        token = item.strip().upper()
+        if token:
+            return token
+
+    return ""
 
 
 def classify_position(position: object) -> str:
-    positions = normalize_position_text(position)
+    primary = primary_position_token(position)
 
-    if not positions:
+    if not primary:
         return "Other"
 
-    if positions & {"GK"}:
+    if primary == "GK":
         return "GK"
 
-    if positions & {"CF", "ST"}:
+    if primary in {"CF", "ST"}:
         return "ST"
 
-    if positions & {
+    if primary in {
         "LW", "RW", "LWF", "RWF",
         "LAMF", "RAMF",
     }:
         return "Winger"
 
-    if positions & {"AMF", "CAM"}:
+    if primary in {"AMF", "CAM"}:
         return "AM"
 
-    if positions & {
+    if primary in {
         "DMF", "LDMF", "RDMF", "CDM",
     }:
         return "DM"
 
-    if positions & {
+    if primary in {
         "CMF", "LCMF", "RCMF", "CM",
     }:
         return "CM"
 
-    if positions & {
+    if primary in {
         "LB", "RB", "LWB", "RWB",
     }:
         return "FB_WB"
 
-    if positions & {
+    if primary in {
         "CB", "LCB", "RCB",
     }:
         return "CB"

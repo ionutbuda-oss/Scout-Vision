@@ -6,24 +6,24 @@
     "age": 19,
     "matches_played": 19,
     "competition": "France National",
-    "performance_score": 75.3,
-    "recruitment_score": 78.1,
+    "performance_score": 70.7,
+    "recruitment_score": 71.5,
     "categories": [
         {
             "name": "Ball Carrying",
-            "score": 78.25
+            "score": 72.75
         },
         {
             "name": "Chance Creation",
-            "score": 67.5
+            "score": 77.75
         },
         {
             "name": "Goal Threat",
-            "score": 85.25
+            "score": 76.25
         },
         {
             "name": "Combination Play",
-            "score": 60.25
+            "score": 56.0
         }
     ]
 }

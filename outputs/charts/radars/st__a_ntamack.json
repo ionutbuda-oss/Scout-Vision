@@ -6,24 +6,24 @@
     "age": 21,
     "matches_played": 32,
     "competition": "France National",
-    "performance_score": 70.5,
-    "recruitment_score": 73.5,
+    "performance_score": 73.9,
+    "recruitment_score": 76.2,
     "categories": [
         {
             "name": "Finishing",
-            "score": 47.36
+            "score": 56.11
         },
         {
             "name": "Box Threat",
-            "score": 91.39
-        },
-        {
-            "name": "Duels",
-            "score": 94.31
+            "score": 95.14
         },
         {
             "name": "Link Play",
-            "score": 61.32
+            "score": 58.4
+        },
+        {
+            "name": "Offensive Duels",
+            "score": 93.89
         }
     ]
 }

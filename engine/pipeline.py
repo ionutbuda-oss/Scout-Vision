@@ -7,11 +7,14 @@ from engine.prepare_database import prepare_database
 from engine.score_players import score_players
 from engine.validation import validate_project
 from engine.visualization.distributions import create_position_distribution
+from engine.visualization.player_card import create_top_player_cards
 from engine.visualization.radar_charts import create_top_player_radars
+from engine.reports.generate_top_reports import generate_top_reports
+from engine.reports.report_builder import safe_filename
 
 
 def _print_generated_radars(generated_radars: list[dict[str, Path]]) -> None:
-    """Afișează în terminal fișierele radar generate."""
+    """Display the generated radar chart files in the terminal."""
 
     print(f"Radar charts created: {len(generated_radars)}")
 
@@ -20,11 +23,20 @@ def _print_generated_radars(generated_radars: list[dict[str, Path]]) -> None:
         print(f"- {png_path.name}")
 
 
+def _print_generated_player_cards(generated_cards: list[Path]) -> None:
+    """Display the generated player card files in the terminal."""
+
+    print(f"Player cards created: {len(generated_cards)}")
+
+    for card_path in generated_cards:
+        print(f"- {card_path.name}")
+
+
 def run_pipeline(settings: Settings) -> None:
-    """Rulează pipeline-ul complet ScoutVision."""
+    """Run the complete ScoutVision pipeline."""
 
     print("=" * 68)
-    print("SCOUTVISION V1.1")
+    print("SCOUTVISION V1.3")
     print("=" * 68)
 
     validate_project(settings)
@@ -107,19 +119,22 @@ def run_pipeline(settings: Settings) -> None:
         output_folder=settings.charts_dir,
     )
 
-    position_chart = (
-        settings.charts_dir
-        / "position_distribution.png"
-    )
-    position_data = (
-        settings.charts_dir
-        / "position_distribution.json"
-    )
+    position_chart = settings.charts_dir / "position_distribution.png"
+    position_data = settings.charts_dir / "position_distribution.json"
 
     radar_output_folder = settings.charts_dir / "radars"
     generated_radars = create_top_player_radars(
         rankings_file=settings.rankings_file,
         output_folder=radar_output_folder,
+        competition_name=settings.competition_name,
+    )
+
+    player_cards_output_folder = (
+        settings.base_dir / "outputs" / "player_cards"
+    )
+    generated_player_cards = create_top_player_cards(
+        rankings_file=settings.rankings_file,
+        output_folder=player_cards_output_folder,
         competition_name=settings.competition_name,
     )
 
@@ -137,9 +152,29 @@ def run_pipeline(settings: Settings) -> None:
         f"{radar_output_folder}"
     )
     _print_generated_radars(generated_radars)
+    print(
+        f"Player cards folder:\n"
+        f"{player_cards_output_folder}"
+    )
+    _print_generated_player_cards(generated_player_cards)
 
-    print("\n[4/4] Report generation...")
-    print("PDF report module is not connected yet.")
+    print("\n[4/4] Generating recruitment reports...")
+
+    reports_output_root = settings.base_dir / "outputs" / "scouting_reports"
+    generated_reports = generate_top_reports(
+        rankings_file=settings.rankings_file,
+        competition_name=settings.competition_name,
+        output_root=reports_output_root,
+        top_n_per_position=5,
+        clear_previous=True,
+    )
+
+    print("Recruitment reports created successfully.")
+    print(f"Reports created: {len(generated_reports)}")
+    print(
+        f"Reports folder:\n"
+        f"{reports_output_root / safe_filename(settings.competition_name)}"
+    )
 
     print("\n" + "=" * 68)
     print("SCOUTVISION PIPELINE COMPLETED SUCCESSFULLY")
