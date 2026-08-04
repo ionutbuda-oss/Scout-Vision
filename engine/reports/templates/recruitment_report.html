@@ -26,12 +26,7 @@
         <div class="score-track"><i style="width: {{ score.value }}%"></i><b style="left: {{ score.value }}%"></b></div>
         <div class="scale"><span>0</span><span>50</span><span>100</span></div>
 
-{% if player.position_rank and player.position_pool %}
-<div class="score-ranking">
-    <span>TOP {{ player.top_percent }}%</span>
-    <strong>Rank {{ player.position_rank }} / {{ player.position_pool }}</strong>
-</div>
-{% endif %}
+
       </div>
     </div>
 
@@ -61,7 +56,10 @@
     </div>
 
     <div class="cover-insights">
-      <div><span>PLAYER DNA</span><strong>{{ strength.name }}</strong><em>{{ strength.score_display }}</em></div>
+      <div class="dna-card">
+        <span>PLAYER DNA</span>
+        <strong>{{ player_dna.title }}</strong>
+      </div>
       <div class="development"><span>DEVELOPMENT PRIORITY</span><strong>{{ development.name }}</strong><em>{{ development.score_display }}</em></div>
     </div>
     <footer><span>ScoutVision Report v2.0</span><span>Data source: Wyscout</span></footer>

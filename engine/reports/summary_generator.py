@@ -47,11 +47,11 @@ ACTION_PHRASES = {
     "Combination Play": "connecting attacks through passing combinations",
     "Creativity": "creating and accessing advanced passing options",
     "Defending": "protecting space and succeeding in defensive actions",
-    "Defensive Contribution": "supporting the team through defensive actions",
+    "Defensive Contribution": "secondary_competency the team through defensive actions",
     "Distribution": "circulating possession accurately and consistently",
     "Finishing": "converting shooting opportunities",
     "Goal Threat": "producing shooting and scoring output",
-    "Link Play": "connecting attacks and supporting possession",
+    "Link Play": "connecting attacks and secondary_competency possession",
     "Offensive Duels": "competing effectively in attacking duels",
     "Progression": "advancing possession and breaking lines through passing",
 }
@@ -78,7 +78,7 @@ DEVELOPMENT_PHRASES = {
 
 def _level(score: float) -> str:
     if score >= 90:
-        return "elite"
+        return "outstanding"
     if score >= 80:
         return "very strong"
     if score >= 70:
@@ -99,14 +99,14 @@ def generate_executive_summary(
         return "Position-specific profile generated from the active ScoutVision model."
 
     ordered = sorted(competencies, key=lambda item: item["score"], reverse=True)
-    strongest = ordered[0]
-    supporting = ordered[1] if len(ordered) > 1 else ordered[0]
-    weakest = ordered[-1]
+    primary_competency = ordered[0]
+    secondary_competency = ordered[1] if len(ordered) > 1 else ordered[0]
+    development_area = ordered[-1]
 
     role = ROLE_LABELS.get(position_group, "Player")
-    strong_name = strongest["name"]
-    support_name = supporting["name"]
-    weak_name = weakest["name"]
+    strong_name = primary_competency["name"]
+    support_name = secondary_competency["name"]
+    weak_name = development_area["name"]
 
     strength_phrase = STRENGTH_PHRASES.get(
         strong_name,
@@ -125,12 +125,26 @@ def generate_executive_summary(
         f"{weak_name.lower()} remains the main development area",
     )
 
+    dna_titles = {
+        "Progression": "Progressive playmaker",
+        "Ball Carrying": "Ball progressor",
+        "Creativity": "Chance creator",
+        "Goal Threat": "Goal-scoring attacker",
+        "Distribution": "Ball-playing distributor",
+        "Ball Winning": "Ball winner",
+        "Aerial Defending": "Aerial defender",
+        "Link Play": "Link-up forward",
+        "Finishing": "Penalty-box finisher",
+    }
+
+    dna = dna_titles.get(strong_name, role)
+
     first_sentence = (
-        f"{role} with {_level(strongest['score'])} {strength_phrase} "
-        f"and {support_phrase}."
+        f"{dna} whose primary impact comes from {action_phrase}."
     )
+
     second_sentence = (
-        f"The profile is driven by {action_phrase}, while "
+        f"{support_phrase.capitalize()} provides additional value, while "
         f"{development_phrase}."
     )
     return f"{first_sentence} {second_sentence}"

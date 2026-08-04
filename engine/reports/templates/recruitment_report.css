@@ -3,7 +3,13 @@
 @page{size:A4;margin:0}.report-page{width:210mm;height:297mm;overflow:hidden;background:radial-gradient(circle at 75% 10%,rgba(35,120,230,.12),transparent 26%),linear-gradient(135deg,#020c1b,#061a30 64%,#031326);page-break-after:always;position:relative}.report-page:last-child{page-break-after:auto}
 .topbar,.page-header{height:24mm;padding:0 13mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(1,10,25,.58)}
 .brand{display:flex;align-items:center;gap:4mm;font-weight:800;font-size:7mm;letter-spacing:.07em}.brand.small{font-size:5mm}.brand-mark{width:11mm;height:11mm;display:grid;place-items:center;border:1.4px solid var(--blue);color:var(--blue);font-size:3.8mm;letter-spacing:0}.document-type{font-size:4mm;font-weight:700;letter-spacing:.05em}
-.cover-hero{min-height:55mm;padding:8mm 13mm 6mm;display:grid;grid-template-columns:1fr 64mm;gap:10mm;align-items:start}.identity{min-width:0}.eyebrow{font-size:3mm;color:var(--cyan);font-weight:700;letter-spacing:.08em}.identity h1{margin:3mm 0 2mm;font-size:14mm;line-height:.95;text-transform:uppercase;overflow-wrap:anywhere}.role{font-size:5mm;color:var(--blue);font-weight:700;text-transform:uppercase}.meta{display:flex;gap:8mm;margin-top:5mm;font-size:4mm;color:var(--white);font-weight:600}.meta span+span:before{content:'•';margin-right:8mm;color:var(--blue)}
+.cover-hero{min-height:55mm;padding:8mm 13mm 6mm;display:grid;grid-template-columns:1fr 64mm;gap:10mm;align-items:start}.identity{min-width:0}.eyebrow{font-size:3mm;color:var(--cyan);font-weight:700;letter-spacing:.08em}.identity h1{
+font-size:64px;
+font-weight:800;
+line-height:1;
+margin:10px 0;
+letter-spacing:-1px;
+}.role{font-size:5mm;color:var(--blue);font-weight:700;text-transform:uppercase}.meta{display:flex;gap:8mm;margin-top:5mm;font-size:4mm;color:var(--white);font-weight:600}.meta span+span:before{content:'•';margin-right:8mm;color:var(--blue)}
 .score-panel{border-left:1px solid var(--line);display:grid;align-content:center;text-align:center;padding-left:8mm}.score-panel>span{font-size:3.5mm}.score-panel>strong{font-size:21mm;line-height:1;color:var(--blue)}.score-panel>em{font-style:normal;font-size:4.5mm;font-weight:700;margin:1mm 0 5mm}.score-track{position:relative;height:1.7mm;border-radius:99px;background:var(--track)}.score-track i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#2477ef,#43a2ff)}.score-track b{position:absolute;top:50%;width:4mm;height:4mm;border-radius:50%;background:var(--blue);transform:translate(-50%,-50%)}.scale{display:flex;justify-content:space-between;margin-top:2mm;font-size:2.5mm;color:var(--muted)}
 .facts{min-height:22mm;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(7,27,49,.8)}.facts div{display:grid;place-content:center;gap:1.5mm;text-align:center;border-right:1px solid var(--line)}.facts div:last-child{border:0}.facts span{font-size:2.5mm;color:var(--muted);letter-spacing:.04em}.facts strong{font-size:5mm}
 .cover-profile{height:121mm;display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}.cover-profile article{padding:7mm 9mm}.cover-profile article+article{border-left:1px solid var(--line)}h2{margin:0;font-size:4.4mm;letter-spacing:.02em}.cover-profile img{width:100%;height:102mm;object-fit:contain}.competency-panel{padding-left:10mm!important}.competency{margin-top:10mm}.competency>div:first-child{display:flex;justify-content:space-between;font-size:4.4mm}.competency strong{font-size:5.6mm}.bar{height:1.8mm;margin-top:2.4mm;border-radius:99px;background:var(--track);overflow:hidden}.bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#2681fb,#3897ff)}
@@ -30,7 +36,13 @@ footer{height:10mm;padding:0 13mm;display:flex;align-items:center;justify-conten
 .analysis-page footer{height:11mm}
 /* ScoutVision Recruitment Report v2.0 - Sprint 1 */
 .executive-summary{min-height:30mm;padding:3.6mm 13mm;display:grid;grid-template-columns:minmax(0,1fr) 38mm;gap:8mm;align-items:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(7,27,49,.72)}
-.executive-summary>div{min-width:0}.executive-summary>div>span{display:block;margin-bottom:1.3mm;color:var(--cyan);font-size:2.6mm;font-weight:700;letter-spacing:.08em}.executive-summary p{margin:0;color:#edf5fd;font-size:3.25mm;line-height:1.38}.executive-summary aside{height:100%;padding-left:6mm;display:grid;align-content:center;justify-items:end;border-left:1px solid var(--line)}.executive-summary aside span{color:var(--muted);font-size:2.2mm;letter-spacing:.05em}.executive-summary aside strong{margin-top:.5mm;color:var(--white);font-size:5mm}.executive-summary aside em{margin-top:.5mm;color:var(--cyan);font-size:2.8mm;font-style:normal;font-weight:700}
+.executive-summary>div{min-width:0}.executive-summary>div>span{display:block;margin-bottom:1.3mm;color:var(--cyan);font-size:2.6mm;font-weight:700;letter-spacing:.08em}.executive-summary p{
+font-size:17px;
+line-height:1.75;
+max-width:92%;
+color:#e6eefb;
+font-weight:400;
+}.executive-summary aside{height:100%;padding-left:6mm;display:grid;align-content:center;justify-items:end;border-left:1px solid var(--line)}.executive-summary aside span{color:var(--muted);font-size:2.2mm;letter-spacing:.05em}.executive-summary aside strong{margin-top:.5mm;color:var(--white);font-size:5mm}.executive-summary aside em{margin-top:.5mm;color:var(--cyan);font-size:2.8mm;font-style:normal;font-weight:700}
 .cover-profile{height:104mm}.cover-profile img{height:86mm}.cover-insights{height:42mm}
 .confidence-cell strong{font-size:3.25mm!important}.confidence-cell em{color:var(--cyan);font-size:2.5mm;font-style:normal;font-weight:700}
 
@@ -48,3 +60,14 @@ footer{height:10mm;padding:0 13mm;display:flex;align-items:center;justify-conten
     border-radius:5mm;
     background:rgba(255,255,255,.03);
 }
+
+
+.dna-card strong{
+    display:block;
+    font-size:34px;
+    font-weight:800;
+    line-height:1.05;
+    letter-spacing:.4px;
+    margin-top:10px;
+}
+

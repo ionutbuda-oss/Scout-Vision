@@ -13,6 +13,7 @@ from typing import Any, Mapping
 from .summary_generator import generate_executive_summary
 
 import pandas as pd
+from engine.intelligence.dna_engine_v2 import build_player_dna
 
 try:
     from engine.scoring.profile_models import ROLE_MODELS
@@ -230,7 +231,13 @@ def build_report_context(
             })
         kpi_groups.append({"name": competency_name, "weight": f"{float(config['weight']) * 100:.0f}%", "metrics": metrics})
 
-    strongest = max(competencies, key=lambda item: item["score"])
+    strongest = build_player_dna(
+        position_group,
+        {
+            item["name"]: item["score"]
+            for item in competencies
+        }
+    )
     development = min(competencies, key=lambda item: item["score"])
     score_column = "Scout Score" if "Scout Score" in row.index else "Recruitment Score"
     if score_column not in row.index:
@@ -300,7 +307,7 @@ def build_report_context(
         "confidence": _confidence(row),
         "competencies": competencies,
         "kpi_groups": kpi_groups,
-        "strength": strongest,
+        "player_dna": strongest,
         "development": development,
         "executive_summary": executive_summary,
     }
