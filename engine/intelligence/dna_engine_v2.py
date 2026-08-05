@@ -9,6 +9,8 @@ from engine.intelligence.profiles.cb import CB_PROFILES
 from engine.intelligence.profiles.dm import DM_PROFILES
 from engine.intelligence.profiles.cm import CM_PROFILES
 from engine.intelligence.profiles.fb import FB_PROFILES
+from engine.intelligence.profiles.winger import WINGER_PROFILES
+from engine.intelligence.profiles.st import ST_PROFILES
 
 POSITION_PROFILES = {
 
@@ -17,6 +19,8 @@ POSITION_PROFILES = {
     "DM": DM_PROFILES,
     "CM": CM_PROFILES,
     "FB_WB": FB_PROFILES,
+    "Winger": WINGER_PROFILES,
+    "ST": ST_PROFILES,
 
 }
 

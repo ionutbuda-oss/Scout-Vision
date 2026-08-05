@@ -65,8 +65,28 @@
         <p>{{ executive_summary }}</p>
       </article>
       <aside class="profile-card">
-        <div><span>PROFILE IDENTITY</span><strong>{{ player_dna.title }}</strong></div>
-        <div><span>DEVELOPMENT AREA</span><strong>{{ development.name }}</strong><em>{{ development.score_display }}</em></div>
+
+        <div>
+          <span>PRIMARY IDENTITY</span>
+          <strong>{{ player_dna.title }}</strong>
+        </div>
+
+        <div>
+          <span>SECONDARY ATTRIBUTE</span>
+          <strong>{{ player_dna.secondary_attribute }}</strong>
+        </div>
+
+        <div>
+          <span>PROFILE TYPE</span>
+          <strong>{{ player_dna.identity_profile }}</strong>
+        </div>
+
+        <div>
+          <span>DEVELOPMENT AREA</span>
+          <strong>{{ development.name }}</strong>
+          <em>{{ development.score_display }}</em>
+        </div>
+
       </aside>
     </div>
 
@@ -124,7 +144,7 @@
       <article>
         <span>DEVELOPMENT FOCUS</span>
         <strong>{{ development.name }}</strong>
-        <p>Lowest current competency score within the active position model: {{ development.score_display }}.</p>
+        <p><strong>{{ development.score_display }} / 100</strong></p>
       </article>
     </div>
 
