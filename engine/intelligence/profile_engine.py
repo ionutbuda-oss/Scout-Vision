@@ -11,6 +11,7 @@ def calculate_profile(competencies: dict, profiles: list, mode: str = "max"):
 
     best_profile = None
     best_score = None
+    scored_profiles = []
 
     for profile in profiles:
 
@@ -18,6 +19,11 @@ def calculate_profile(competencies: dict, profiles: list, mode: str = "max"):
 
         for metric, weight in profile["weights"].items():
             score += competencies.get(metric, 0) * weight
+
+        scored_profiles.append({
+            "profile": profile,
+            "score": round(score,1)
+        })
 
         if best_score is None:
             best_score = score
@@ -34,8 +40,14 @@ def calculate_profile(competencies: dict, profiles: list, mode: str = "max"):
                 best_score = score
                 best_profile = profile
 
+    scored_profiles.sort(
+        key=lambda x: x["score"],
+        reverse=True
+    )
+
     result = best_profile.copy()
-    result["profile_score"] = round(best_score, 1)
+    result["profile_score"] = round(best_score,1)
+    result["rankings"] = scored_profiles
 
     return result
 

@@ -8,9 +8,7 @@ AM_PROFILES = [
     {
         "key":"PROGRESSIVE_PLAYMAKER",
         "title":"PROGRESSIVE PLAYMAKER",
-        "archetype":"Playmaker",
         "description":"Progresses possession through vertical passing.",
-        "executive_summary":"Midfielder capable of progressing possession through line-breaking passing while maintaining creativity between the lines.",
         "weights":{
             "Progression":0.60,
             "Creativity":0.40
@@ -20,9 +18,7 @@ AM_PROFILES = [
     {
         "key":"BALL_PROGRESSOR",
         "title":"BALL PROGRESSOR",
-        "archetype":"Runner",
         "description":"Advances play through progressive carries.",
-        "executive_summary":"Dynamic midfielder who progresses possession primarily through ball carrying, breaking opposition lines with direct movement and acceleration.",
         "weights":{
             "Ball Carrying":0.60,
             "Progression":0.40
@@ -32,9 +28,7 @@ AM_PROFILES = [
     {
         "key":"CHANCE_CREATOR",
         "title":"CHANCE CREATOR",
-        "archetype":"Creator",
         "description":"Creates chances through vision and passing.",
-        "executive_summary":"Creative attacking midfielder capable of consistently generating high-quality opportunities through vision, intelligent passing and final-third decision making.",
         "weights":{
             "Creativity":0.70,
             "Goal Threat":0.30
@@ -44,9 +38,7 @@ AM_PROFILES = [
     {
         "key":"ATTACKING_CONNECTOR",
         "title":"ATTACKING CONNECTOR",
-        "archetype":"Connector",
         "description":"Links midfield with the attacking line.",
-        "executive_summary":"Balanced attacking midfielder who connects midfield and attack through intelligent positioning, combination play and efficient progression.",
         "weights":{
             "Creativity":0.35,
             "Progression":0.35,

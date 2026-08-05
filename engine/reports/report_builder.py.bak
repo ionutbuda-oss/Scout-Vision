@@ -265,12 +265,9 @@ def build_report_context(
                 position_pool = int(len(pool))
                 top_percent = max(1, math.ceil(position_rank / position_pool * 100))
 
-    executive_summary = (
-        strongest.get("executive_summary")
-        or generate_executive_summary(
-            position_group=position_group,
-            competencies=competencies,
-        )
+    executive_summary = generate_executive_summary(
+        position_group=position_group,
+        competencies=competencies,
     )
 
     context = {
