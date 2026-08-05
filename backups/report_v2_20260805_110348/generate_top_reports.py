@@ -143,8 +143,8 @@ def generate_top_reports(
             )
             template_path = (
                 Path(__file__).resolve().parent
-                / "templates_v2"
-                / "recruitment_report_v2.html"
+                / "templates"
+                / "recruitment_report.html"
             )
             render_html(template_path, context, final_html)
             render_pdf(final_html, final_pdf)

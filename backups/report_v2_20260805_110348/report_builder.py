@@ -53,6 +53,18 @@ def integer(value: object, default: int = 0) -> int:
     return int(round(number(value, default)))
 
 
+def score_label(score: float) -> str:
+    if score >= 85:
+        return "ELITE"
+    if score >= 75:
+        return "VERY GOOD"
+    if score >= 65:
+        return "GOOD"
+    if score >= 55:
+        return "AVERAGE"
+    return "DEVELOPMENT"
+
+
 def format_metric(metric: str, value: object) -> str:
     converted = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
     if pd.isna(converted):
@@ -290,6 +302,7 @@ def build_report_context(
             "value": recruitment,
             "display": f"{recruitment:.1f}",
             "performance": f"{performance:.1f}",
+            "label": score_label(recruitment),
         },
         "confidence": _confidence(row),
         "competencies": competencies,
@@ -298,18 +311,5 @@ def build_report_context(
         "development": development,
         "executive_summary": executive_summary,
     }
-    minutes = integer(row.get("Minutes played"))
-    matches_played = integer(row.get("Matches played"))
-    available_percentiles = sum(
-        metric["percentile"] is not None
-        for group in kpi_groups
-        for metric in group["metrics"]
-    )
-    total_metrics = sum(len(group["metrics"]) for group in kpi_groups)
-    completeness = round(available_percentiles / total_metrics * 100) if total_metrics else 0
-    context["evidence_note"] = (
-        f"Based on {minutes:,} minutes across {matches_played} matches; "
-        f"percentile coverage is available for {completeness}% of model KPIs."
-    )
     context["radar_uri"] = radar_svg_data_uri(competencies)
     return context

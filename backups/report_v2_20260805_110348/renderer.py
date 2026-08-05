@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -13,36 +12,25 @@ class ReportRenderError(RuntimeError):
     """Raised when Chromium cannot create the report."""
 
 
-_STYLESHEET_RE = re.compile(
-    r'<link\s+rel=["\']stylesheet["\']\s+href=["\']([^"\']+)["\']\s*/?>',
-    flags=re.IGNORECASE,
-)
-
-
-def _inline_template_styles(html: str, template_path: Path) -> str:
-    """Inline local stylesheets referenced by the selected report template."""
-
-    def replace(match: re.Match[str]) -> str:
-        href = match.group(1)
-        css_path = template_path.parent / href
-        if not css_path.exists():
-            raise FileNotFoundError(f"Report stylesheet not found: {css_path}")
-        return f"<style>{css_path.read_text(encoding='utf-8')}</style>"
-
-    return _STYLESHEET_RE.sub(replace, html)
-
-
 def render_html(template_path: Path, context: dict, output_path: Path) -> Path:
     environment = Environment(
         loader=FileSystemLoader(str(template_path.parent)),
         autoescape=select_autoescape(["html", "xml"]),
     )
     template = environment.get_template(template_path.name)
-    rendered = template.render(**context)
-    standalone = _inline_template_styles(rendered, template_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(standalone, encoding="utf-8")
+    output_path.write_text(template.render(**context), encoding="utf-8")
     return output_path
+
+
+def _standalone_html(html_path: Path) -> str:
+    html = html_path.read_text(encoding="utf-8")
+    css_path = Path(__file__).resolve().parent / "templates" / "recruitment_report.css"
+    css = css_path.read_text(encoding="utf-8")
+    return html.replace(
+        '<link rel="stylesheet" href="recruitment_report.css">',
+        f"<style>{css}</style>",
+    )
 
 
 def render_pdf(html_path: Path, output_path: Path) -> Path:
@@ -50,11 +38,8 @@ def render_pdf(html_path: Path, output_path: Path) -> Path:
     try:
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch(headless=True)
-            page = browser.new_page(
-                viewport={"width": 1240, "height": 1754},
-                device_scale_factor=1,
-            )
-            page.set_content(html_path.read_text(encoding="utf-8"), wait_until="networkidle")
+            page = browser.new_page(viewport={"width": 1240, "height": 1754}, device_scale_factor=1)
+            page.set_content(_standalone_html(html_path), wait_until="networkidle")
             page.pdf(
                 path=str(output_path),
                 format="A4",

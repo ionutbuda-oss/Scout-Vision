@@ -8,6 +8,7 @@ This module is the single source of truth for:
 - scoring validation;
 - methodology exports;
 - radar and Player Card category labels.
+"DM": {
 
 Methodological principles:
 - only metrics available in the Wyscout source database are used;
@@ -88,7 +89,7 @@ ROLE_MODELS: Final[dict[str, RoleModel]] = {
             "metrics": {
                 "xA per 90": 0.35,
                 "Accurate crosses, %": 0.25,
-                "Key passes per 90": 0.20,
+                "Crosses per 90": 0.20,
                 "Smart passes per 90": 0.20,
             },
         },
@@ -97,14 +98,14 @@ ROLE_MODELS: Final[dict[str, RoleModel]] = {
             "metrics": {
                 "Successful dribbles, %": 0.35,
                 "Dribbles per 90": 0.25,
-                "Progressive runs per 90": 0.25,
-                "Accelerations per 90": 0.15,
+                "Offensive duels won, %": 0.25,
+                "Offensive duels per 90": 0.15,
             },
         },
     },
     "DM": {
         "Ball Winning": {
-            "weight": 0.40,
+            "weight": 0.35,
             "metrics": {
                 "Defensive duels won, %": 0.40,
                 "Interceptions per 90": 0.35,
@@ -112,7 +113,7 @@ ROLE_MODELS: Final[dict[str, RoleModel]] = {
             },
         },
         "Distribution": {
-            "weight": 0.35,
+            "weight": 0.30,
             "metrics": {
                 "Accurate passes, %": 0.35,
                 "Forward passes per 90": 0.25,
@@ -121,7 +122,7 @@ ROLE_MODELS: Final[dict[str, RoleModel]] = {
             },
         },
         "Progression": {
-            "weight": 0.25,
+            "weight": 0.20,
             "metrics": {
                 "Progressive passes per 90": 0.40,
                 "Accurate progressive passes, %": 0.30,
@@ -129,7 +130,14 @@ ROLE_MODELS: Final[dict[str, RoleModel]] = {
                 "Accurate passes to final third, %": 0.10,
             },
         },
-       
+        "Ball Security": {
+            "weight": 0.15,
+            "metrics": {
+                "Accurate passes, %": 0.40,
+                "Successful dribbles, %": 0.30,
+                "Accurate progressive passes, %": 0.30,
+            },
+        },
     },
     "CM": {
         "Distribution": {
@@ -145,22 +153,23 @@ ROLE_MODELS: Final[dict[str, RoleModel]] = {
             "weight": 0.30,
             "metrics": {
                 "Progressive passes per 90": 0.35,
-                "Accurate progressive passes, %": 0.25,
-                "Through passes per 90": 0.20,
-                "Accurate through passes, %": 0.20,
+                "Accurate progressive passes, %": 0.30,
+                "Passes to final third per 90": 0.20,
+                "Accurate passes to final third, %": 0.15,
             },
         },
         "Creativity": {
-            "weight": 0.20,
+            "weight": 0.25,
             "metrics": {
-                "xA per 90": 0.35,
-                "Key passes per 90": 0.25,
-                "Smart passes per 90": 0.20,
+                "xA per 90": 0.30,
+                "Smart passes per 90": 0.25,
                 "Accurate smart passes, %": 0.20,
+                "Through passes per 90": 0.15,
+                "Accurate through passes, %": 0.10,
             },
         },
         "Defensive Contribution": {
-            "weight": 0.20,
+            "weight": 0.15,
             "metrics": {
                 "Defensive duels won, %": 0.45,
                 "Interceptions per 90": 0.35,
@@ -173,73 +182,74 @@ ROLE_MODELS: Final[dict[str, RoleModel]] = {
             "weight": 0.35,
             "metrics": {
                 "xA per 90": 0.35,
-                "Key passes per 90": 0.25,
-                "Smart passes per 90": 0.20,
+                "Smart passes per 90": 0.25,
                 "Accurate smart passes, %": 0.20,
+                "Through passes per 90": 0.20,
             },
         },
         "Ball Carrying": {
             "weight": 0.25,
             "metrics": {
                 "Successful dribbles, %": 0.35,
-                "Progressive runs per 90": 0.30,
-                "Dribbles per 90": 0.20,
-                "Accelerations per 90": 0.15,
+                "Dribbles per 90": 0.25,
+                "Offensive duels won, %": 0.25,
+                "Offensive duels per 90": 0.15,
             },
         },
         "Progression": {
             "weight": 0.20,
             "metrics": {
                 "Progressive passes per 90": 0.35,
-                "Accurate progressive passes, %": 0.25,
-                "Through passes per 90": 0.20,
-                "Accurate through passes, %": 0.20,
+                "Accurate progressive passes, %": 0.30,
+                "Passes to final third per 90": 0.20,
+                "Accurate passes to final third, %": 0.15,
             },
         },
         "Goal Threat": {
             "weight": 0.20,
             "metrics": {
-                "Goals per 90": 0.45,
-                "xG per 90": 0.35,
+                "xG per 90": 0.45,
+                "Goals per 90": 0.35,
                 "Goal conversion, %": 0.20,
             },
         },
     },
     "Winger": {
         "Ball Carrying": {
-            "weight": 0.35,
+            "weight": 0.30,
             "metrics": {
                 "Successful dribbles, %": 0.35,
-                "Progressive runs per 90": 0.30,
-                "Dribbles per 90": 0.20,
-                "Accelerations per 90": 0.15,
+                "Dribbles per 90": 0.25,
+                "Offensive duels won, %": 0.25,
+                "Offensive duels per 90": 0.15,
             },
         },
         "Chance Creation": {
             "weight": 0.25,
             "metrics": {
                 "xA per 90": 0.35,
-                "Key passes per 90": 0.25,
-                "Smart passes per 90": 0.20,
+                "Smart passes per 90": 0.25,
                 "Accurate smart passes, %": 0.20,
+                "Crosses per 90": 0.10,
+                "Accurate crosses, %": 0.10,
             },
         },
         "Goal Threat": {
-            "weight": 0.20,
+            "weight": 0.25,
             "metrics": {
-                "Goals per 90": 0.45,
-                "xG per 90": 0.35,
+                "xG per 90": 0.45,
+                "Goals per 90": 0.35,
                 "Goal conversion, %": 0.20,
             },
         },
         "Combination Play": {
             "weight": 0.20,
             "metrics": {
-                "Accurate passes, %": 0.25,
-                "Through passes per 90": 0.25,
-                "Accurate through passes, %": 0.20,
-                "Passes per 90": 0.15,
-                "xA per 90": 0.15,
+                "Accurate passes, %": 0.30,
+                "Passes per 90": 0.20,
+                "Progressive passes per 90": 0.20,
+                "Accurate progressive passes, %": 0.20,
+                "Through passes per 90": 0.10,
             },
         },
     },
@@ -255,8 +265,9 @@ ROLE_MODELS: Final[dict[str, RoleModel]] = {
         "Box Threat": {
             "weight": 0.25,
             "metrics": {
-                "Touches in box per 90": 0.60,
-                "Successful attacking actions per 90": 0.40,
+                "Touches in box per 90": 0.45,
+                "Successful attacking actions per 90": 0.30,
+                "Offensive duels per 90": 0.25,
             },
         },
         "Link Play": {
@@ -354,3 +365,5 @@ def validate_role_models(
 
 
 validate_role_models()
+Shell Command: Install 'code' command in PATH
+
