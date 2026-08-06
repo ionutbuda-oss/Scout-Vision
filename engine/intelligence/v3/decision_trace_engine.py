@@ -14,15 +14,26 @@ def build_decision_trace(
     decision_result,
 ):
 
+    winner = identity_result.winner
+    runner_up = identity_result.runner_up
+
     trace = [
 
         {
             "step": "Identity Engine",
-            "winner": identity_result["winner"]["profile"]["title"],
-            "winner_score": identity_result["winner"]["score"],
-            "runner_up": identity_result["runner_up"]["profile"]["title"],
-            "runner_up_score": identity_result["runner_up"]["score"],
-            "difference": identity_result["difference"],
+            "winner": winner.definition.title,
+            "winner_score": winner.score,
+            "runner_up": (
+                runner_up.definition.title
+                if runner_up
+                else None
+            ),
+            "runner_up_score": (
+                runner_up.score
+                if runner_up
+                else None
+            ),
+            "difference": identity_result.difference,
         },
 
         {
@@ -42,7 +53,7 @@ def build_decision_trace(
         {
             "step": "Decision Engine",
             "identity_type": decision_result["identity_type"],
-            "final_identity": decision_result["primary_profile"]["title"],
+            "final_identity": decision_result["primary_profile"].title,
         },
 
     ]

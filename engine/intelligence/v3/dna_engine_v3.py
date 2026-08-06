@@ -48,7 +48,7 @@ def build_player_dna_v3(position_group, competencies):
     )
 
     confidence = calculate_confidence(
-        identity["difference"],
+        identity.difference,
     )
 
     decision = select_final_identity(

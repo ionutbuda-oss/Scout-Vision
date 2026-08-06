@@ -17,8 +17,8 @@ def select_final_identity(
     confidence_result,
 ):
 
-    winner = identity_result["winner"]
-    runner_up = identity_result["runner_up"]
+    winner = identity_result.winner
+    runner_up = identity_result.runner_up
 
     identity_type = "Specialist"
 
@@ -46,23 +46,23 @@ def select_final_identity(
 
     return {
 
-        "primary_profile": winner["profile"],
+        "primary_profile": winner.definition,
 
-        "primary_score": winner["score"],
+        "primary_score": winner.score,
 
         "runner_up_profile": (
-            runner_up["profile"]
+            runner_up.definition
             if runner_up
             else None
         ),
 
         "runner_up_score": (
-            runner_up["score"]
+            runner_up.score
             if runner_up
             else None
         ),
 
-        "difference": identity_result["difference"],
+        "difference": identity_result.difference,
 
         "confidence": confidence_result,
 

@@ -9,20 +9,21 @@ Responsibility:
 """
 
 from typing import Dict, List
+
 from engine.core.models.identity_definition import IdentityDefinition
-from engine.core.models.identity_score import IdentityScore
 from engine.core.models.identity_result import IdentityResult
+from engine.core.models.identity_score import IdentityScore
 
 
 def choose_specialist_identity(
     competencies: Dict[str, float],
     profiles: List[dict],
-):
+) -> IdentityResult:
     """
     Evaluate all specialist profiles and return the full ranking.
     """
 
-    scored_profiles = []
+    scored_profiles: List[IdentityScore] = []
 
     for profile in profiles:
 
@@ -31,13 +32,25 @@ def choose_specialist_identity(
         for metric, weight in profile["weights"].items():
             score += competencies.get(metric, 0) * weight
 
-        scored_profiles.append({
-            "profile": profile,
-            "score": round(score, 1),
-        })
+        definition = IdentityDefinition(
+            key=profile["key"],
+            title=profile["title"],
+            signature=profile["signature"],
+            archetype=profile["archetype"],
+            description=profile["description"],
+            executive_summary=profile["executive_summary"],
+            weights=profile["weights"],
+        )
+
+        scored_profiles.append(
+            IdentityScore(
+                definition=definition,
+                score=round(score, 1),
+            )
+        )
 
     scored_profiles.sort(
-        key=lambda x: x["score"],
+        key=lambda identity: identity.score,
         reverse=True,
     )
 
@@ -51,16 +64,16 @@ def choose_specialist_identity(
 
     difference = (
         round(
-            winner["score"] - runner_up["score"],
+            winner.score - runner_up.score,
             1,
         )
         if runner_up
-        else winner["score"]
+        else winner.score
     )
 
-    return {
-        "winner": winner,
-        "runner_up": runner_up,
-        "difference": difference,
-        "ranking": scored_profiles,
- }
+    return IdentityResult(
+        winner=winner,
+        runner_up=runner_up,
+        difference=difference,
+        ranking=scored_profiles,
+    )

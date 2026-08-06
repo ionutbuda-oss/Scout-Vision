@@ -16,7 +16,7 @@ def build_explanation(
 
     ordered = sorted(
         competencies.items(),
-        key=lambda x: x[1],
+        key=lambda item: item[1],
         reverse=True,
     )
 
@@ -28,23 +28,13 @@ def build_explanation(
         for name, score in ordered[:3]
     ]
 
-    winner = identity_result["winner"]["profile"]
+    winner = identity_result.winner.definition
 
     return {
-
-        "identity": winner["title"],
-
-        "signature": winner.get("signature"),
-
+        "identity": winner.title,
+        "signature": winner.signature,
         "strengths": strengths,
-
         "confidence": confidence_result,
-
         "versatility": versatility_result,
-
-        "summary": winner.get(
-            "executive_summary",
-            ""
-        ),
-
+        "summary": winner.executive_summary,
     }
