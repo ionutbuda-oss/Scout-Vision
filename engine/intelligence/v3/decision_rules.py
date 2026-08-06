@@ -2,39 +2,22 @@
 ScoutVision DNA Engine v3
 Decision Rules
 
-Business rules for player identity selection.
+Responsibility:
+- Classify identity certainty.
+- Keep identity certainty independent from profile completeness.
 """
 
 
 def is_clear_specialist(confidence):
-
-    return confidence["score"] >= 80
+    return confidence.score >= 80
 
 
 def is_uncertain_identity(confidence):
+    return confidence.score <= 20
 
-    return confidence["score"] <= 40
 
-
-def should_upgrade_to_complete(
-    versatility,
-    confidence,
-):
-
+def should_mark_hybrid(confidence):
     return (
-        versatility["balanced"]
-        and
-        confidence["score"] <= 60
-    )
-
-
-def should_mark_hybrid(
-    versatility,
-    confidence,
-):
-
-    return (
-        not versatility["balanced"]
-        and
-        confidence["score"] <= 40
+        confidence.score > 20
+        and confidence.score <= 40
     )

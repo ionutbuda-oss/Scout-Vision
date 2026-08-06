@@ -38,8 +38,8 @@ def build_decision_trace(
 
         {
             "step": "Confidence Engine",
-            "level": confidence_result["level"],
-            "score": confidence_result["score"],
+            "level": confidence_result.level,
+            "score": confidence_result.score,
         },
 
         {

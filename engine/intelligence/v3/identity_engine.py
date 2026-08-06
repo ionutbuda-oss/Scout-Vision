@@ -35,7 +35,7 @@ def choose_specialist_identity(
         definition = IdentityDefinition(
             key=profile["key"],
             title=profile["title"],
-            signature=profile["signature"],
+            signature=profile.get("signature", profile["archetype"]),
             archetype=profile["archetype"],
             description=profile["description"],
             executive_summary=profile["executive_summary"],

@@ -12,7 +12,8 @@ from engine.intelligence.profiles.winger import WINGER_PROFILES
 
 from engine.intelligence.v3.identity_engine import choose_specialist_identity
 from engine.intelligence.v3.versatility_engine import calculate_versatility
-from engine.intelligence.v3.confidence_engine import calculate_confidence
+from engine.intelligence.v3.completeness_engine import calculate_completeness
+from engine.evidence.engines.confidence_engine import ConfidenceEngine
 from engine.intelligence.v3.decision_engine import select_final_identity
 from engine.intelligence.v3.explainability_engine import build_explanation
 from engine.intelligence.v3.decision_trace_engine import build_decision_trace
@@ -47,14 +48,19 @@ def build_player_dna_v3(position_group, competencies):
         competencies,
     )
 
-    confidence = calculate_confidence(
-        identity.difference,
+    completeness = calculate_completeness(
+        competencies,
+    )
+
+    confidence = ConfidenceEngine().evaluate(
+        identity.ranking,
     )
 
     decision = select_final_identity(
         identity,
         versatility,
         confidence,
+        completeness,
     )
 
     explanation = build_explanation(
