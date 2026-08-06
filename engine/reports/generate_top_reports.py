@@ -178,7 +178,11 @@ def generate_top_reports(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate Top-N ScoutVision reports by position.")
     parser.add_argument("--rankings", type=Path, default=DEFAULT_RANKINGS)
-    parser.add_argument("--competition", default="France National")
+    parser.add_argument(
+    "--competition",
+    required=True,
+    help="Competition name displayed in the report",
+)
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
     parser.add_argument("--top", type=int, default=5)
     parser.add_argument("--keep-existing", action="store_true")

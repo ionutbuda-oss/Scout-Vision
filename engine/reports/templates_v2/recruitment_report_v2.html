@@ -14,7 +14,7 @@
 
     <div class="hero">
       <div class="identity">
-        <div class="eyebrow">{{ player.position_group }} POSITION MODEL</div>
+        <div class="eyebrow">{{ player.position_group | upper }} MODEL</div>
         <h1>{{ player.name }}</h1>
         <div class="role">{{ player.position }}</div>
         <div class="meta"><span>{{ player.team }}</span><span>{{ player.competition }}</span></div>
@@ -24,9 +24,6 @@
         <strong>{{ score.display }}</strong>
         <div class="score-track"><i style="width:{{ score.value }}%"></i></div>
         <div class="score-scale"><span>0</span><span>100</span></div>
-        {% if player.position_rank and player.position_pool %}
-        <div class="ranking-note">Position rank <b>{{ player.position_rank }} / {{ player.position_pool }}</b></div>
-        {% endif %}
       </aside>
     </div>
 
@@ -68,29 +65,23 @@
 
         <div>
           <span>PRIMARY IDENTITY</span>
-          <strong>{{ player_dna.title }}</strong>
-        </div>
-
-        <div>
-          <span>SECONDARY ATTRIBUTE</span>
-          <strong>{{ player_dna.secondary_attribute }}</strong>
+          <strong>{{ player_dna.primary_profile.title }}
+          <span class="dna-score">{{ "%.1f"|format(player_dna.primary_score) }}</span></strong>
         </div>
 
         <div>
           <span>PROFILE TYPE</span>
-          <strong>{{ player_dna.identity_profile }}</strong>
+          <strong>{{ profile_type }}</strong>
         </div>
 
         <div>
           <span>DEVELOPMENT AREA</span>
           <strong>{{ development.name }}</strong>
-          <em>{{ development.score_display }}</em>
+          <em>{{ development.score_display }} / 100</em>
         </div>
 
       </aside>
     </div>
-
-    <footer><span>ScoutVision Report v2.0</span><span>Page 1 / 2</span></footer>
   </section>
 
   <section class="report-page analysis-page">
@@ -154,8 +145,6 @@
       <div><span>SAMPLE</span><strong>{{ player.minutes }} minutes · {{ player.matches }} matches</strong></div>
       <div><span>INTERPRETATION</span><strong>Decision-support, not final verdict</strong></div>
     </div>
-
-    <footer><span>ScoutVision supports recruitment decisions through contextual performance profiling.</span><span>Page 2 / 2</span></footer>
   </section>
 </body>
 </html>

@@ -8,7 +8,7 @@ from pathlib import Path
 import pandas as pd
 
 from .renderer import render_html, render_pdf
-from .report_builder import build_report_context, safe_filename
+from .report_builder_v3 import build_report_context, safe_filename
 
 DEFAULT_RANKINGS = Path("outputs/rankings/France_L3_U25_rankings.xlsx")
 DEFAULT_OUTPUT = Path("outputs/scouting_reports")
