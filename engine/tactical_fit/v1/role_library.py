@@ -695,6 +695,44 @@ ROLE_LIBRARY = {
         },
 
 
+        "CM": {
+
+            "HOLDING_MIDFIELDER": {
+                "title": "HOLDING MIDFIELDER",
+                "weights": {
+                    "Distribution": 0.35,
+                    "Progression": 0.15,
+                    "Creativity": 0.10,
+                    "Defensive Contribution": 0.40,
+                },
+            },
+
+            "TWO_WAY_MIDFIELDER": {
+                "title": "TWO-WAY MIDFIELDER",
+                "weights": {
+                    "Distribution": 0.20,
+                    "Progression": 0.30,
+                    "Creativity": 0.15,
+                    "Defensive Contribution": 0.35,
+                },
+                "minimums": {
+                    "Defensive Contribution": 45.0,
+                    "Progression": 40.0,
+                },
+            },
+
+            "PROGRESSIVE_MIDFIELDER": {
+                "title": "PROGRESSIVE MIDFIELDER",
+                "weights": {
+                    "Distribution": 0.25,
+                    "Progression": 0.40,
+                    "Creativity": 0.25,
+                    "Defensive Contribution": 0.10,
+                },
+            },
+
+        },
+
         "CB": {
 
             "DEFENSIVE_CB": {
