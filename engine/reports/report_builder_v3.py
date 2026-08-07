@@ -184,6 +184,12 @@ def radar_svg_data_uri(competencies: list[dict[str, Any]]) -> str:
     return f"data:image/svg+xml;base64,{encoded}"
 
 
+def display_formation(formation: str) -> str:
+    if formation and not formation.startswith("1-"):
+        return f"1-{formation}"
+    return formation
+
+
 def build_report_context(
     row: pd.Series,
     *,
@@ -343,7 +349,7 @@ def build_report_context(
         )
 
         tactical_formations.append({
-            "formation": formation,
+            "formation": display_formation(formation),
             "roles": tactical_roles,
             "best_role": best_role,
         })
