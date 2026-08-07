@@ -695,6 +695,46 @@ ROLE_LIBRARY = {
         },
 
 
+        "Winger": {
+
+            "INSIDE_FORWARD": {
+                "title": "INSIDE FORWARD",
+                "weights": {
+                    "Ball Carrying": 0.25,
+                    "Chance Creation": 0.10,
+                    "Goal Threat": 0.40,
+                    "Combination Play": 0.20,
+                    "Defensive Contribution": 0.05,
+                },
+                "minimums": {
+                    "Goal Threat": 40.0,
+                },
+            },
+
+            "DIRECT_WIDE_FORWARD": {
+                "title": "DIRECT WIDE FORWARD",
+                "weights": {
+                    "Ball Carrying": 0.45,
+                    "Chance Creation": 0.15,
+                    "Goal Threat": 0.20,
+                    "Combination Play": 0.10,
+                    "Defensive Contribution": 0.10,
+                },
+            },
+
+            "CREATIVE_WIDE_FORWARD": {
+                "title": "CREATIVE WIDE FORWARD",
+                "weights": {
+                    "Ball Carrying": 0.20,
+                    "Chance Creation": 0.35,
+                    "Goal Threat": 0.10,
+                    "Combination Play": 0.30,
+                    "Defensive Contribution": 0.05,
+                },
+            },
+
+        },
+
         "CM": {
 
             "HOLDING_MIDFIELDER": {
