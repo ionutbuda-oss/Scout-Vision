@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ player.name }} | ScoutVision Recruitment Report v2</title>
+  <link rel="stylesheet" href="recruitment_report_v2.css">
+</head>
+<body>
+  <section class="report-page cover-page">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">SV</span><span>SCOUTVISION</span></div>
+      <div class="document-type"><span>RECRUITMENT REPORT</span><small>OBJECTIVE PLAYER PROFILING</small></div>
+    </header>
+
+    <div class="hero">
+      <div class="identity">
+        <div class="eyebrow">{{ player.position_group | upper }} MODEL</div>
+        <h1>{{ player.name }}</h1>
+        <div class="role">{{ player.position }}</div>
+        <div class="meta"><span>{{ player.team }}</span><span>{{ player.competition }}</span></div>
+      </div>
+      <aside class="score-panel">
+        <span>SCOUT SCORE</span>
+        <strong>{{ score.display }}</strong>
+        <div class="score-track"><i style="width:{{ score.value }}%"></i></div>
+        <div class="score-scale"><span>0</span><span>100</span></div>
+      </aside>
+    </div>
+
+    <div class="facts">
+      <div><span>AGE</span><strong>{{ player.age }}</strong></div>
+      <div><span>FOOT</span><strong>{{ player.foot }}</strong></div>
+      <div><span>MINUTES</span><strong>{{ player.minutes }}</strong></div>
+      <div><span>MATCHES</span><strong>{{ player.matches }}</strong></div>
+      <div><span>SEASON PERFORMANCE</span><strong>{{ score.performance }}</strong></div>
+      <div><span>DATA CONFIDENCE</span><strong>{{ confidence.display }}</strong><em>{{ confidence.label }}</em></div>
+    </div>
+
+    <div class="overview-grid">
+      <article class="panel radar-panel">
+        <div class="panel-heading"><div><span>01</span><h2>POSITION PROFILE</h2></div><small>Scores by weighted competency</small></div>
+        <img src="{{ radar_uri }}" alt="Position profile radar">
+      </article>
+
+      <article class="panel competency-panel">
+        <div class="panel-heading"><div><span>02</span><h2>COMPETENCY PROFILE</h2></div><small>0–100 model scores</small></div>
+        <div class="competency-list">
+          {% for item in competencies %}
+          <div class="competency-row">
+            <div class="competency-copy"><span>{{ item.name }}</span><small>Model weight {{ item.weight }}</small></div>
+            <strong>{{ item.score_display }}</strong>
+            <div class="bar"><i style="width:{{ item.score }}%"></i></div>
+          </div>
+          {% endfor %}
+        </div>
+      </article>
+    </div>
+
+    <div class="summary-grid">
+      <article class="summary-card">
+        <div class="section-label">EXECUTIVE SUMMARY</div>
+        <p>{{ executive_summary }}</p>
+      </article>
+      <aside class="profile-card">
+
+        <div>
+          <span>PRIMARY IDENTITY</span>
+          <strong>{{ player_dna.primary_profile.title }}
+          <span class="dna-score">{{ "%.1f"|format(player_dna.primary_score) }}</span></strong>
+        </div>
+
+        <div>
+          <span>PROFILE TYPE</span>
+          <strong>{{ profile_type }}</strong>
+        </div>
+
+        <div>
+          <span>DEVELOPMENT AREA</span>
+          <strong>{{ development.name }}</strong>
+          <em>{{ development.score_display }} / 100</em>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+  <section class="report-page analysis-page">
+    <header class="page-header">
+      <div class="brand compact"><span class="brand-mark">SV</span><span>SCOUTVISION</span></div>
+      <div class="player-ref"><span>{{ player.name }}</span><strong>{{ player.position_group }} · {{ player.competition }}</strong></div>
+    </header>
+
+    <div class="analysis-intro">
+      <div>
+        <span class="section-kicker">PERFORMANCE DETAIL</span>
+        <h2>Position-model indicators</h2>
+        <p>Player values are shown with model weights and within-position percentiles where available.</p>
+      </div>
+      <div class="context-cards">
+        <div><span>POSITION POOL</span><strong>{{ player.position_pool if player.position_pool else 'N/A' }}</strong></div>
+        <div><span>TOP BAND</span><strong>{% if player.top_percent %}Top {{ player.top_percent }}%{% else %}N/A{% endif %}</strong></div>
+        <div><span>MODEL</span><strong>{{ player.position_group }}</strong></div>
+      </div>
+    </div>
+
+    <div class="kpi-grid kpi-count-{{ kpi_groups|length }}">
+      {% for group in kpi_groups %}
+      <article class="kpi-card">
+        <header><span>{{ "%02d"|format(loop.index) }}</span><div><strong>{{ group.name }}</strong><small>Competency weight {{ group.weight }}</small></div></header>
+        <div class="metric-list">
+          {% for metric in group.metrics %}
+          <div class="metric-row">
+            <div class="metric-main"><span>{{ metric.name }}</span><strong>{{ metric.value }}</strong></div>
+            <div class="metric-meta"><span>Metric weight {{ metric.weight }}</span>{% if metric.percentile is not none %}<b>P{{ metric.percentile }}</b>{% else %}<b class="na">N/A</b>{% endif %}</div>
+            <div class="percentile-track"><i class="{% if metric.percentile is none %}unavailable{% elif metric.percentile >= 75 %}p-high{% elif metric.percentile >= 50 %}p-mid{% elif metric.percentile >= 25 %}p-low{% else %}p-bottom{% endif %}" style="width:{{ metric.percentile if metric.percentile is not none else 0 }}%"></i></div>
+          </div>
+          {% endfor %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="decision-strip">
+      <article>
+        <span>RECRUITMENT STATUS</span>
+        <strong>{{ player.recommendation }}</strong>
+        <p>Use this data profile alongside live observation, video review and contextual recruitment requirements.</p>
+      </article>
+      <article>
+        <span>DATA CONFIDENCE</span>
+        <strong>{{ confidence.display }} / 100</strong>
+        <div class="confidence-bar"><i style="width:{{ confidence.value }}%"></i></div>
+        <p>{{ evidence_note }}</p>
+      </article>
+      <article>
+        <span>DEVELOPMENT FOCUS</span>
+        <strong>{{ development.name }}</strong>
+        <p><strong>{{ development.score_display }} / 100</strong></p>
+      </article>
+    </div>
+
+    <div class="methodology">
+      <div><span>SCORING</span><strong>Weighted position model</strong></div>
+      <div><span>COMPARISON</span><strong>Same-position percentile</strong></div>
+      <div><span>SAMPLE</span><strong>{{ player.minutes }} minutes · {{ player.matches }} matches</strong></div>
+      <div><span>INTERPRETATION</span><strong>Decision-support, not final verdict</strong></div>
+    </div>
+  </section>
+</body>
+</html>
