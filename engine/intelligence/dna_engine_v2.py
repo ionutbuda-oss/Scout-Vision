@@ -99,6 +99,31 @@ def build_player_dna(position_group, competencies):
             primary, second = second, primary
             difference = primary["score"] - second["score"]
 
+
+    # Prefer complete profiles when the player is genuinely well-rounded
+    COMPLETE_PROFILE_MARGIN = 3.0
+    COMPLETE_MIN_COMPETENCY = 70
+
+    complete_profile = next(
+        (
+            p for p in scored_profiles
+            if p["profile"]["key"].startswith("COMPLETE")
+        ),
+        None,
+    )
+
+    if complete_profile is not None:
+
+        best_score = primary["score"]
+        complete_score = complete_profile["score"]
+
+        if (
+            best_score - complete_score <= COMPLETE_PROFILE_MARGIN
+            and
+            min(competencies.values()) >= COMPLETE_MIN_COMPETENCY
+        ):
+            primary = complete_profile
+
     identity_profile = "Hybrid Profile"
 
     for threshold, label in IDENTITY_LEVELS:
@@ -117,15 +142,15 @@ def build_player_dna(position_group, competencies):
     return {
 
         "key":primary["profile"]["key"],
-        "title":primary["profile"]["title"],
+        "title": primary["profile"]["title"].title(),
         "description":primary["profile"]["description"],
         "executive_summary":primary["profile"].get("executive_summary"),
         "archetype":primary["profile"].get("archetype"),
-        "identity_profile": identity_profile,
-        "secondary_attribute":ATTRIBUTE_LABELS.get(
+        "identity_profile": identity_profile.title(),
+        "secondary_attribute": ATTRIBUTE_LABELS.get(
             secondary_metric,
             secondary_metric
-        ),
+        ).title(),
         "profile_scores":scored_profiles
 
     }

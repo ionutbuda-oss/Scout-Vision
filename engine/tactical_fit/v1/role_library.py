@@ -804,6 +804,46 @@ ROLE_LIBRARY = {
 
         },
 
+        "ST": {
+
+            "GOAL_SCORING_FORWARD": {
+                "title": "GOAL-SCORING FORWARD",
+                "weights": {
+                    "Finishing": 0.45,
+                    "Box Threat": 0.35,
+                    "Link Play": 0.10,
+                    "Offensive Duels": 0.10,
+                },
+                "minimums": {
+                    "Finishing": 40.0,
+                },
+            },
+
+            "LINK_UP_FORWARD": {
+                "title": "LINK-UP FORWARD",
+                "weights": {
+                    "Finishing": 0.10,
+                    "Box Threat": 0.20,
+                    "Link Play": 0.45,
+                    "Offensive Duels": 0.25,
+                },
+            },
+
+            "TARGET_FORWARD": {
+                "title": "TARGET FORWARD",
+                "weights": {
+                    "Finishing": 0.10,
+                    "Box Threat": 0.30,
+                    "Link Play": 0.15,
+                    "Offensive Duels": 0.45,
+                },
+                "minimums": {
+                    "Offensive Duels": 40.0,
+                },
+            },
+
+        },
+
     }
 
 }
