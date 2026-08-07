@@ -43,3 +43,13 @@ outputs/**/*
 !outputs/charts/.gitkeep
 !outputs/player_cards/.gitkeep
 !outputs/reports/.gitkeep
+
+# Python cache
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Development backups
+*.backup*
