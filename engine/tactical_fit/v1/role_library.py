@@ -653,6 +653,48 @@ ROLE_LIBRARY = {
 
     "3-4-3": {
 
+        "FB_WB": {
+
+            "TWO_WAY_WING_BACK": {
+                "title": "TWO-WAY WING-BACK",
+                "weights": {
+                    "Defending": 0.35,
+                    "Progression": 0.30,
+                    "Chance Creation": 0.15,
+                    "Ball Carrying": 0.20,
+                },
+                "minimums": {
+                    "Defending": 40.0,
+                    "Progression": 40.0,
+                },
+            },
+
+            "PROGRESSIVE_WING_BACK": {
+                "title": "PROGRESSIVE WING-BACK",
+                "weights": {
+                    "Defending": 0.15,
+                    "Progression": 0.40,
+                    "Chance Creation": 0.15,
+                    "Ball Carrying": 0.30,
+                },
+                "minimums": {
+                    "Progression": 40.0,
+                },
+            },
+
+            "ATTACKING_WING_BACK": {
+                "title": "ATTACKING WING-BACK",
+                "weights": {
+                    "Defending": 0.15,
+                    "Progression": 0.20,
+                    "Chance Creation": 0.40,
+                    "Ball Carrying": 0.25,
+                },
+            },
+
+        },
+
+
         "CB": {
 
             "DEFENSIVE_CB": {
