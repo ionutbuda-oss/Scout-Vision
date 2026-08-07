@@ -65,6 +65,34 @@ def evaluate_position_fit(
             role,
         )
 
+        minimums = role.get("minimums", {})
+
+        missing_minimum_competencies = [
+            name
+            for name in minimums
+            if name not in competencies
+        ]
+
+        if missing_minimum_competencies:
+            raise TacticalFitError(
+                "Missing competencies required for role eligibility: "
+                + ", ".join(missing_minimum_competencies)
+            )
+
+        eligible = all(
+            float(competencies[name]) >= float(minimum)
+            for name, minimum in minimums.items()
+        )
+
+        failed_minimums = {
+            name: {
+                "value": float(competencies[name]),
+                "minimum": float(minimum),
+            }
+            for name, minimum in minimums.items()
+            if float(competencies[name]) < float(minimum)
+        }
+
         results.append(
             {
                 "formation": formation,
@@ -72,11 +100,16 @@ def evaluate_position_fit(
                 "role_key": role_key,
                 "role": role["title"],
                 "fit_score": score,
+                "eligible": eligible,
+                "failed_minimums": failed_minimums,
             }
         )
 
     return sorted(
         results,
-        key=lambda item: item["fit_score"],
+        key=lambda item: (
+            item["eligible"],
+            item["fit_score"],
+        ),
         reverse=True,
     )

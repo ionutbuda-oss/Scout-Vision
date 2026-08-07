@@ -242,6 +242,15 @@ ROLE_MODELS: Final[dict[str, RoleModel]] = {
                 "xA per 90": 0.15,
             },
         },
+        "Defensive Contribution": {
+            "weight": 0.00,
+            "metrics": {
+                "Defensive duels won, %": 0.40,
+                "Interceptions per 90": 0.30,
+                "Defensive duels per 90": 0.20,
+                "Successful defensive actions per 90": 0.10,
+            },
+        },
     },
     "ST": {
         "Finishing": {

@@ -466,5 +466,189 @@ ROLE_LIBRARY = {
 
     },
 
+    "4-4-2": {
+
+        "CB": {
+
+            "BALL_PLAYING_CB": {
+                "title": "BALL-PLAYING CB",
+                "weights": {
+                    "Distribution": 0.40,
+                    "Progression": 0.35,
+                    "Defending": 0.25,
+                },
+            },
+
+            "PROGRESSIVE_CB": {
+                "title": "PROGRESSIVE CB",
+                "weights": {
+                    "Progression": 0.50,
+                    "Distribution": 0.25,
+                    "Defending": 0.25,
+                },
+            },
+
+            "DEFENSIVE_CB": {
+                "title": "DEFENSIVE CB",
+                "weights": {
+                    "Defending": 0.60,
+                    "Distribution": 0.25,
+                    "Progression": 0.15,
+                },
+            },
+
+        },
+
+        "FB_WB": {
+
+            "DEFENSIVE_FULL_BACK": {
+                "title": "DEFENSIVE FULL-BACK",
+                "weights": {
+                    "Defending": 0.45,
+                    "Progression": 0.25,
+                    "Ball Carrying": 0.15,
+                    "Chance Creation": 0.15,
+                },
+            },
+
+            "PROGRESSIVE_FULL_BACK": {
+                "title": "PROGRESSIVE FULL-BACK",
+                "weights": {
+                    "Progression": 0.35,
+                    "Ball Carrying": 0.30,
+                    "Defending": 0.25,
+                    "Chance Creation": 0.10,
+                },
+            },
+
+            "ATTACKING_FULL_BACK": {
+                "title": "ATTACKING FULL-BACK",
+                "weights": {
+                    "Chance Creation": 0.30,
+                    "Progression": 0.30,
+                    "Ball Carrying": 0.25,
+                    "Defending": 0.15,
+                },
+            },
+
+        },
+
+        "CM": {
+
+            "TWO_WAY_CM": {
+                "title": "TWO-WAY CM",
+                "weights": {
+                    "Defensive Contribution": 0.35,
+                    "Progression": 0.35,
+                    "Distribution": 0.20,
+                    "Creativity": 0.10,
+                },
+                "minimums": {
+                    "Defensive Contribution": 50.0,
+                    "Progression": 50.0,
+                    "Distribution": 35.0,
+                },
+            },
+
+            "BALL_WINNING_CM": {
+                "title": "BALL-WINNING CM",
+                "weights": {
+                    "Defensive Contribution": 0.45,
+                    "Distribution": 0.25,
+                    "Progression": 0.20,
+                    "Creativity": 0.10,
+                },
+            },
+
+            "PROGRESSIVE_CM": {
+                "title": "PROGRESSIVE CM",
+                "weights": {
+                    "Progression": 0.35,
+                    "Defensive Contribution": 0.25,
+                    "Distribution": 0.25,
+                    "Creativity": 0.15,
+                },
+            },
+
+        },
+
+        "Winger": {
+
+            "TWO_WAY_WIDE_MIDFIELDER": {
+                "title": "TWO-WAY WIDE MIDFIELDER",
+                "weights": {
+                    "Defensive Contribution": 0.30,
+                    "Ball Carrying": 0.25,
+                    "Chance Creation": 0.20,
+                    "Combination Play": 0.15,
+                    "Goal Threat": 0.10,
+                },
+                "minimums": {
+                    "Defensive Contribution": 50.0,
+                    "Ball Carrying": 40.0,
+                    "Chance Creation": 40.0,
+                    "Combination Play": 40.0,
+                },
+            },
+
+            "DIRECT_WIDE_MIDFIELDER": {
+                "title": "DIRECT WIDE MIDFIELDER",
+                "weights": {
+                    "Ball Carrying": 0.40,
+                    "Chance Creation": 0.20,
+                    "Goal Threat": 0.15,
+                    "Combination Play": 0.10,
+                    "Defensive Contribution": 0.15,
+                },
+            },
+
+            "CREATIVE_WIDE_MIDFIELDER": {
+                "title": "CREATIVE WIDE MIDFIELDER",
+                "weights": {
+                    "Chance Creation": 0.35,
+                    "Combination Play": 0.30,
+                    "Ball Carrying": 0.15,
+                    "Defensive Contribution": 0.15,
+                    "Goal Threat": 0.05,
+                },
+            },
+
+        },
+
+        "ST": {
+
+            "GOAL_SCORING_FORWARD": {
+                "title": "GOAL-SCORING FORWARD",
+                "weights": {
+                    "Finishing": 0.45,
+                    "Box Threat": 0.35,
+                    "Link Play": 0.10,
+                    "Offensive Duels": 0.10,
+                },
+            },
+
+            "SUPPORT_FORWARD": {
+                "title": "SUPPORT FORWARD",
+                "weights": {
+                    "Finishing": 0.20,
+                    "Box Threat": 0.15,
+                    "Link Play": 0.45,
+                    "Offensive Duels": 0.20,
+                },
+            },
+
+            "TARGET_FORWARD": {
+                "title": "TARGET FORWARD",
+                "weights": {
+                    "Finishing": 0.15,
+                    "Box Threat": 0.20,
+                    "Link Play": 0.20,
+                    "Offensive Duels": 0.45,
+                },
+            },
+
+        },
+
+    }
 
 }
