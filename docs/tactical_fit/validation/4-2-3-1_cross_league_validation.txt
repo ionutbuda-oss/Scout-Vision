@@ -1,0 +1,439 @@
+====================================================================================================
+SCOUTVISION TACTICAL FIT V1 — FULL 4-2-3-1 VALIDATION
+====================================================================================================
+
+POSITIONS
+CB, FB_WB, DM, CM, AM, Winger, ST
+
+
+====================================================================================================
+4-2-3-1 — CB CROSS-LEAGUE VALIDATION
+====================================================================================================
+
+POPULATION
+------------------------------------------------------------
+Belgium Challenger Pro League                33
+France National                              18
+Germany Regionalliga                         32
+TOTAL                                        83
+
+BEST FIT DISTRIBUTION
+--------------------------------------------------------------------------------
+Best Fit                       BALL-PLAYING CB  DEFENSIVE CB  PROGRESSIVE CB
+League                                                                      
+Belgium Challenger Pro League                9            14              10
+France National                              2            10               6
+Germany Regionalliga                         8            15               9
+
+BEST FIT DISTRIBUTION (%)
+--------------------------------------------------------------------------------
+Best Fit                       BALL-PLAYING CB  DEFENSIVE CB  PROGRESSIVE CB
+League                                                                      
+Belgium Challenger Pro League             27.3          42.4            30.3
+France National                           11.1          55.6            33.3
+Germany Regionalliga                      25.0          46.9            28.1
+
+MEAN ROLE FIT BY LEAGUE
+--------------------------------------------------------------------------------
+                               BALL-PLAYING CB  PROGRESSIVE CB  DEFENSIVE CB
+League                                                                      
+Belgium Challenger Pro League             51.5            51.5          51.5
+France National                           52.8            52.8          52.8
+Germany Regionalliga                      51.6            51.6          51.6
+
+FIT GAP BY LEAGUE
+--------------------------------------------------------------------------------
+                               count  mean  median  std  min   max
+League                                                            
+Belgium Challenger Pro League     33   3.9     2.8  5.1  0.0  26.7
+France National                   18   4.9     3.5  4.9  0.1  18.8
+Germany Regionalliga              32   4.5     3.4  4.5  0.1  22.3
+
+OVERALL BEST FIT DISTRIBUTION
+------------------------------------------------------------
+BALL-PLAYING CB                  19 ( 22.9%)
+PROGRESSIVE CB                   25 ( 30.1%)
+DEFENSIVE CB                     39 ( 47.0%)
+
+ROLE LEADERS
+----------------------------------------------------------------------------------------------------
+BALL-PLAYING CB                Y. Gomis                  89.6   Belgium Challenger Pro League
+PROGRESSIVE CB                 Y. Gomis                  88.9   Belgium Challenger Pro League
+DEFENSIVE CB                   Y. Gomis                  85.2   Belgium Challenger Pro League
+
+
+====================================================================================================
+4-2-3-1 — FB_WB CROSS-LEAGUE VALIDATION
+====================================================================================================
+
+POPULATION
+------------------------------------------------------------
+Belgium Challenger Pro League                38
+France National                              28
+Germany Regionalliga                         33
+TOTAL                                        99
+
+BEST FIT DISTRIBUTION
+--------------------------------------------------------------------------------
+Best Fit                       ATTACKING FULL-BACK  DEFENSIVE FULL-BACK  PROGRESSIVE FULL-BACK
+League                                                                                        
+Belgium Challenger Pro League                   13                   16                      9
+France National                                  9                   12                      7
+Germany Regionalliga                            16                   10                      7
+
+BEST FIT DISTRIBUTION (%)
+--------------------------------------------------------------------------------
+Best Fit                       ATTACKING FULL-BACK  DEFENSIVE FULL-BACK  PROGRESSIVE FULL-BACK
+League                                                                                        
+Belgium Challenger Pro League                 34.2                 42.1                   23.7
+France National                               32.1                 42.9                   25.0
+Germany Regionalliga                          48.5                 30.3                   21.2
+
+MEAN ROLE FIT BY LEAGUE
+--------------------------------------------------------------------------------
+                               DEFENSIVE FULL-BACK  PROGRESSIVE FULL-BACK  ATTACKING FULL-BACK
+League                                                                                        
+Belgium Challenger Pro League                 51.3                   51.3                 51.3
+France National                               51.8                   51.8                 51.8
+Germany Regionalliga                          51.5                   51.5                 51.5
+
+FIT GAP BY LEAGUE
+--------------------------------------------------------------------------------
+                               count  mean  median  std  min   max
+League                                                            
+Belgium Challenger Pro League     38   2.9     2.2  2.3  0.1   9.7
+France National                   28   4.4     3.4  2.8  0.4  10.8
+Germany Regionalliga              33   3.8     3.2  2.7  0.2  10.5
+
+OVERALL BEST FIT DISTRIBUTION
+------------------------------------------------------------
+DEFENSIVE FULL-BACK              38 ( 38.4%)
+PROGRESSIVE FULL-BACK            23 ( 23.2%)
+ATTACKING FULL-BACK              38 ( 38.4%)
+
+ROLE LEADERS
+----------------------------------------------------------------------------------------------------
+DEFENSIVE FULL-BACK            I. Diallo                 79.1   France National
+PROGRESSIVE FULL-BACK          I. Diallo                 77.3   France National
+ATTACKING FULL-BACK            S. de Grand               78.5   Belgium Challenger Pro League
+
+
+====================================================================================================
+4-2-3-1 — DM CROSS-LEAGUE VALIDATION
+====================================================================================================
+
+POPULATION
+------------------------------------------------------------
+Belgium Challenger Pro League                11
+France National                               5
+Germany Regionalliga                         14
+TOTAL                                        30
+
+BEST FIT DISTRIBUTION
+--------------------------------------------------------------------------------
+Best Fit                       BALL-WINNING PIVOT  DEEP-LYING PLAYMAKER  HOLDING PIVOT
+League                                                                                
+Belgium Challenger Pro League                   5                     4              2
+France National                                 2                     2              1
+Germany Regionalliga                            7                     6              1
+
+BEST FIT DISTRIBUTION (%)
+--------------------------------------------------------------------------------
+Best Fit                       BALL-WINNING PIVOT  DEEP-LYING PLAYMAKER  HOLDING PIVOT
+League                                                                                
+Belgium Challenger Pro League                45.5                  36.4           18.2
+France National                              40.0                  40.0           20.0
+Germany Regionalliga                         50.0                  42.9            7.1
+
+MEAN ROLE FIT BY LEAGUE
+--------------------------------------------------------------------------------
+                               HOLDING PIVOT  BALL-WINNING PIVOT  DEEP-LYING PLAYMAKER
+League                                                                                
+Belgium Challenger Pro League           54.5                54.5                  54.6
+France National                         60.0                60.0                  60.0
+Germany Regionalliga                    53.6                53.6                  53.6
+
+FIT GAP BY LEAGUE
+--------------------------------------------------------------------------------
+                               count  mean  median  std  min   max
+League                                                            
+Belgium Challenger Pro League     11   4.5     6.1  3.1  0.6   8.8
+France National                    5   3.6     2.0  4.1  0.2  10.2
+Germany Regionalliga              14   5.8     7.1  4.5  0.0  11.2
+
+OVERALL BEST FIT DISTRIBUTION
+------------------------------------------------------------
+HOLDING PIVOT                     4 ( 13.3%)
+BALL-WINNING PIVOT               14 ( 46.7%)
+DEEP-LYING PLAYMAKER             12 ( 40.0%)
+
+ROLE LEADERS
+----------------------------------------------------------------------------------------------------
+HOLDING PIVOT                  Z. Bagbema                76.7   France National
+BALL-WINNING PIVOT             Z. Bagbema                82.2   France National
+DEEP-LYING PLAYMAKER           J. Eze                    81.7   Germany Regionalliga
+
+
+====================================================================================================
+4-2-3-1 — CM CROSS-LEAGUE VALIDATION
+====================================================================================================
+
+POPULATION
+------------------------------------------------------------
+Belgium Challenger Pro League                23
+France National                              20
+Germany Regionalliga                         21
+TOTAL                                        64
+
+BEST FIT DISTRIBUTION
+--------------------------------------------------------------------------------
+Best Fit                       BOX-TO-BOX PIVOT  CONTROLLING PIVOT  PROGRESSIVE PIVOT
+League                                                                               
+Belgium Challenger Pro League                 9                  8                  6
+France National                               9                  7                  4
+Germany Regionalliga                          8                  9                  4
+
+BEST FIT DISTRIBUTION (%)
+--------------------------------------------------------------------------------
+Best Fit                       BOX-TO-BOX PIVOT  CONTROLLING PIVOT  PROGRESSIVE PIVOT
+League                                                                               
+Belgium Challenger Pro League              39.1               34.8               26.1
+France National                            45.0               35.0               20.0
+Germany Regionalliga                       38.1               42.9               19.0
+
+MEAN ROLE FIT BY LEAGUE
+--------------------------------------------------------------------------------
+                               BOX-TO-BOX PIVOT  PROGRESSIVE PIVOT  CONTROLLING PIVOT
+League                                                                               
+Belgium Challenger Pro League              52.2               52.2               52.2
+France National                            52.5               52.5               52.5
+Germany Regionalliga                       52.4               52.4               52.4
+
+FIT GAP BY LEAGUE
+--------------------------------------------------------------------------------
+                               count  mean  median  std  min  max
+League                                                           
+Belgium Challenger Pro League     23   3.7     2.9  2.5  0.1  9.1
+France National                   20   3.1     2.2  2.8  0.2  9.7
+Germany Regionalliga              21   4.1     4.1  2.6  0.3  9.5
+
+OVERALL BEST FIT DISTRIBUTION
+------------------------------------------------------------
+BOX-TO-BOX PIVOT                 26 ( 40.6%)
+PROGRESSIVE PIVOT                14 ( 21.9%)
+CONTROLLING PIVOT                24 ( 37.5%)
+
+ROLE LEADERS
+----------------------------------------------------------------------------------------------------
+BOX-TO-BOX PIVOT               A. De Ridder              71.6   Belgium Challenger Pro League
+PROGRESSIVE PIVOT              L. López                  76.7   Belgium Challenger Pro League
+CONTROLLING PIVOT              L. López                  83.1   Belgium Challenger Pro League
+
+
+====================================================================================================
+4-2-3-1 — AM CROSS-LEAGUE VALIDATION
+====================================================================================================
+
+POPULATION
+------------------------------------------------------------
+Belgium Challenger Pro League                 8
+France National                              11
+Germany Regionalliga                         18
+TOTAL                                        37
+
+BEST FIT DISTRIBUTION
+--------------------------------------------------------------------------------
+Best Fit                       CREATIVE #10  DYNAMIC #10  GOAL-THREAT #10
+League                                                                   
+Belgium Challenger Pro League             2            2                4
+France National                           5            1                5
+Germany Regionalliga                      7            4                7
+
+BEST FIT DISTRIBUTION (%)
+--------------------------------------------------------------------------------
+Best Fit                       CREATIVE #10  DYNAMIC #10  GOAL-THREAT #10
+League                                                                   
+Belgium Challenger Pro League          25.0         25.0             50.0
+France National                        45.5          9.1             45.5
+Germany Regionalliga                   38.9         22.2             38.9
+
+MEAN ROLE FIT BY LEAGUE
+--------------------------------------------------------------------------------
+                               CREATIVE #10  DYNAMIC #10  GOAL-THREAT #10
+League                                                                   
+Belgium Challenger Pro League          56.2         56.3             56.2
+France National                        54.5         54.5             54.6
+Germany Regionalliga                   52.8         52.8             52.8
+
+FIT GAP BY LEAGUE
+--------------------------------------------------------------------------------
+                               count  mean  median  std  min   max
+League                                                            
+Belgium Challenger Pro League      8   4.8     4.2  3.8  0.0  12.6
+France National                   11   5.5     3.3  5.2  1.3  18.0
+Germany Regionalliga              18   5.1     4.0  3.8  0.7  14.0
+
+OVERALL BEST FIT DISTRIBUTION
+------------------------------------------------------------
+CREATIVE #10                     14 ( 37.8%)
+DYNAMIC #10                       7 ( 18.9%)
+GOAL-THREAT #10                  16 ( 43.2%)
+
+ROLE LEADERS
+----------------------------------------------------------------------------------------------------
+CREATIVE #10                   N. Eichinger              83.8   Germany Regionalliga
+DYNAMIC #10                    N. Eichinger              82.2   Germany Regionalliga
+GOAL-THREAT #10                I. Hurtevent              81.6   Belgium Challenger Pro League
+
+
+====================================================================================================
+4-2-3-1 — Winger CROSS-LEAGUE VALIDATION
+====================================================================================================
+
+POPULATION
+------------------------------------------------------------
+Belgium Challenger Pro League                38
+France National                              13
+Germany Regionalliga                         20
+TOTAL                                        71
+
+BEST FIT DISTRIBUTION
+--------------------------------------------------------------------------------
+Best Fit                       CREATIVE WINGER  DIRECT WINGER  INSIDE FORWARD
+League                                                                       
+Belgium Challenger Pro League               15             12              11
+France National                              6              3               4
+Germany Regionalliga                        10              4               6
+
+BEST FIT DISTRIBUTION (%)
+--------------------------------------------------------------------------------
+Best Fit                       CREATIVE WINGER  DIRECT WINGER  INSIDE FORWARD
+League                                                                       
+Belgium Challenger Pro League             39.5           31.6            28.9
+France National                           46.2           23.1            30.8
+Germany Regionalliga                      50.0           20.0            30.0
+
+MEAN ROLE FIT BY LEAGUE
+--------------------------------------------------------------------------------
+                               DIRECT WINGER  CREATIVE WINGER  INSIDE FORWARD
+League                                                                       
+Belgium Challenger Pro League           51.3             51.3            51.3
+France National                         53.8             53.8            53.9
+Germany Regionalliga                    52.5             52.5            52.5
+
+FIT GAP BY LEAGUE
+--------------------------------------------------------------------------------
+                               count  mean  median  std  min   max
+League                                                            
+Belgium Challenger Pro League     38   4.5     4.1  3.6  0.3  15.8
+France National                   13   4.8     4.5  4.8  0.7  16.4
+Germany Regionalliga              20   3.8     2.0  4.0  0.3  12.5
+
+OVERALL BEST FIT DISTRIBUTION
+------------------------------------------------------------
+DIRECT WINGER                    19 ( 26.8%)
+CREATIVE WINGER                  31 ( 43.7%)
+INSIDE FORWARD                   21 ( 29.6%)
+
+ROLE LEADERS
+----------------------------------------------------------------------------------------------------
+DIRECT WINGER                  A. Nankishi               75.0   Germany Regionalliga
+CREATIVE WINGER                Y. Sturm                  77.8   Germany Regionalliga
+INSIDE FORWARD                 F. Slegers                78.3   Belgium Challenger Pro League
+
+
+====================================================================================================
+4-2-3-1 — ST CROSS-LEAGUE VALIDATION
+====================================================================================================
+
+POPULATION
+------------------------------------------------------------
+Belgium Challenger Pro League                28
+France National                              27
+Germany Regionalliga                         26
+TOTAL                                        81
+
+BEST FIT DISTRIBUTION
+--------------------------------------------------------------------------------
+Best Fit                       BOX STRIKER  CLINICAL FINISHER  LINK-UP FORWARD  TARGET FORWARD
+League                                                                                        
+Belgium Challenger Pro League            3                 11               10               4
+France National                          7                  9                6               5
+Germany Regionalliga                     5                  9                7               5
+
+BEST FIT DISTRIBUTION (%)
+--------------------------------------------------------------------------------
+Best Fit                       BOX STRIKER  CLINICAL FINISHER  LINK-UP FORWARD  TARGET FORWARD
+League                                                                                        
+Belgium Challenger Pro League         10.7               39.3             35.7            14.3
+France National                       25.9               33.3             22.2            18.5
+Germany Regionalliga                  19.2               34.6             26.9            19.2
+
+MEAN ROLE FIT BY LEAGUE
+--------------------------------------------------------------------------------
+                               CLINICAL FINISHER  BOX STRIKER  LINK-UP FORWARD  TARGET FORWARD
+League                                                                                        
+Belgium Challenger Pro League               51.8         51.8             51.8            51.8
+France National                             51.8         51.9             51.8            51.9
+Germany Regionalliga                        51.9         51.9             51.9            51.9
+
+FIT GAP BY LEAGUE
+--------------------------------------------------------------------------------
+                               count  mean  median  std  min   max
+League                                                            
+Belgium Challenger Pro League     28   3.9     2.0  4.3  0.1  18.7
+France National                   27   4.1     4.1  3.9  0.1  17.1
+Germany Regionalliga              26   4.1     3.6  2.9  0.0  10.1
+
+OVERALL BEST FIT DISTRIBUTION
+------------------------------------------------------------
+CLINICAL FINISHER                29 ( 35.8%)
+BOX STRIKER                      15 ( 18.5%)
+LINK-UP FORWARD                  23 ( 28.4%)
+TARGET FORWARD                   14 ( 17.3%)
+
+ROLE LEADERS
+----------------------------------------------------------------------------------------------------
+CLINICAL FINISHER              R. Naderi                 83.3   Germany Regionalliga
+BOX STRIKER                    R. Naderi                 83.3   Germany Regionalliga
+LINK-UP FORWARD                R. Fage                   76.4   France National
+TARGET FORWARD                 A. Ntamack                83.2   France National
+
+
+====================================================================================================
+FULL FORMATION SUMMARY
+====================================================================================================
+
+PLAYER POPULATION
+Position                       AM  CB  CM  DM  FB_WB  ST  Winger
+League                                                          
+Belgium Challenger Pro League   8  33  23  11     38  28      38
+France National                11  18  20   5     28  27      13
+Germany Regionalliga           18  32  21  14     33  26      20
+
+TOTAL EVALUATIONS
+465
+
+MEAN BEST FIT BY POSITION
+Position
+AM        58.9
+CB        56.2
+CM        56.0
+DM        60.0
+FB_WB     55.1
+ST        59.1
+Winger    56.6
+
+MEAN FIT GAP BY POSITION
+Position
+AM        5.2
+CB        4.3
+CM        3.6
+DM        4.9
+FB_WB     3.6
+ST        4.0
+Winger    4.4
+
+====================================================================================================
+VALIDATION COMPLETE
+====================================================================================================
