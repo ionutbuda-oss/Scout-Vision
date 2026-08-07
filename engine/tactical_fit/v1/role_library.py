@@ -649,6 +649,41 @@ ROLE_LIBRARY = {
 
         },
 
+    },
+
+    "3-4-3": {
+
+        "CB": {
+
+            "DEFENSIVE_CB": {
+                "title": "DEFENSIVE CB",
+                "weights": {
+                    "Defending": 0.60,
+                    "Distribution": 0.25,
+                    "Progression": 0.15,
+                },
+            },
+
+            "BALL_PLAYING_CB": {
+                "title": "BALL-PLAYING CB",
+                "weights": {
+                    "Defending": 0.25,
+                    "Distribution": 0.45,
+                    "Progression": 0.30,
+                },
+            },
+
+            "WIDE_CB": {
+                "title": "WIDE CB",
+                "weights": {
+                    "Defending": 0.25,
+                    "Distribution": 0.25,
+                    "Progression": 0.50,
+                },
+            },
+
+        },
+
     }
 
 }
