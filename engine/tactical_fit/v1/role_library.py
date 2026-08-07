@@ -78,9 +78,9 @@ ROLE_LIBRARY = {
             "HOLDING_MIDFIELDER": {
                 "title": "HOLDING MIDFIELDER",
                 "weights": {
-                    "Ball Winning": 0.50,
-                    "Distribution": 0.30,
-                    "Progression": 0.20,
+                    "Ball Winning": 0.45,
+                    "Distribution": 0.40,
+                    "Progression": 0.15,
                 },
             },
 
