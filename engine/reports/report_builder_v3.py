@@ -13,6 +13,12 @@ from typing import Any, Mapping
 from .summary_generator_v3 import generate_executive_summary_v3
 
 import pandas as pd
+
+from engine.tactical_fit.v1.fit_engine import (
+    TacticalFitError,
+    evaluate_position_fit,
+)
+from engine.tactical_fit.v1.role_library import ROLE_LIBRARY
 from engine.intelligence.v3.dna_engine_v3 import build_player_dna_v3
 
 try:
@@ -287,6 +293,86 @@ def build_report_context(
         profile_type=profile_type,
     )
 
+    # --------------------------------------------------------
+    # TACTICAL FIT
+    # --------------------------------------------------------
+
+    competency_scores = {
+        item["name"]: float(item["score"])
+        for item in competencies
+    }
+
+    tactical_formations = []
+
+    for formation in ROLE_LIBRARY:
+
+        if position_group not in ROLE_LIBRARY[formation]:
+            continue
+
+        try:
+            role_results = evaluate_position_fit(
+                formation=formation,
+                position_group=position_group,
+                competencies=competency_scores,
+            )
+        except TacticalFitError:
+            continue
+
+        tactical_roles = []
+
+        for result in role_results:
+            tactical_roles.append({
+                "role_key": result["role_key"],
+                "role": result["role"],
+                "fit_score": float(result["fit_score"]),
+                "fit_display": f"{float(result['fit_score']):.1f}",
+                "eligible": bool(result["eligible"]),
+                "failed_minimums": result["failed_minimums"],
+            })
+
+        eligible_roles = [
+            role
+            for role in tactical_roles
+            if role["eligible"]
+        ]
+
+        best_role = (
+            eligible_roles[0]
+            if eligible_roles
+            else None
+        )
+
+        tactical_formations.append({
+            "formation": formation,
+            "roles": tactical_roles,
+            "best_role": best_role,
+        })
+
+    eligible_tactical_roles = [
+        {
+            "formation": formation["formation"],
+            **role,
+        }
+        for formation in tactical_formations
+        for role in formation["roles"]
+        if role["eligible"]
+    ]
+
+    best_tactical_fit = (
+        max(
+            eligible_tactical_roles,
+            key=lambda item: item["fit_score"],
+        )
+        if eligible_tactical_roles
+        else None
+    )
+
+    tactical_fit = {
+        "available": bool(tactical_formations),
+        "formations": tactical_formations,
+        "best_overall": best_tactical_fit,
+    }
+
     context = {
         "player": {
             "name": clean_text(row["Player"]),
@@ -315,6 +401,7 @@ def build_report_context(
         "profile_type": profile_type,
         "development": development,
         "executive_summary": executive_summary,
+        "tactical_fit": tactical_fit,
     }
     minutes = integer(row.get("Minutes played"))
     matches_played = integer(row.get("Matches played"))
