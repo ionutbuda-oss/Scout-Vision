@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
+import argparse
+
 import pandas as pd
 
 from engine.tactical_fit.v1.fit_engine import evaluate_position_fit
 from engine.tactical_fit.v1.role_library import ROLE_LIBRARY
 
-
-FORMATION = "4-3-3"
 
 LEAGUES = {
     "Belgium Challenger Pro League":
@@ -19,24 +19,29 @@ LEAGUES = {
         "outputs/rankings/Germany_Regionalliga_U25_rankings.xlsx",
 }
 
-POSITIONS = [
-    "CB",
-    "FB_WB",
-    "DM",
-    "CM",
-    "Winger",
-    "ST",
-]
-
 
 def score_column(competency: str) -> str:
     return f"{competency} Score"
 
 
-def validate_position(position: str) -> pd.DataFrame:
+def validate_position(
+    position: str,
+    formation: str = "4-3-3",
+) -> pd.DataFrame:
     """Evaluate one position across all configured leagues."""
 
-    role_definitions = ROLE_LIBRARY[FORMATION][position]
+    if formation not in ROLE_LIBRARY:
+        raise ValueError(
+            f"Unknown formation {formation!r}. "
+            f"Available: {', '.join(ROLE_LIBRARY)}"
+        )
+
+    if position not in ROLE_LIBRARY[formation]:
+        raise ValueError(
+            f"{position!r} is not configured for {formation}."
+        )
+
+    role_definitions = ROLE_LIBRARY[formation][position]
 
     required_competencies = sorted({
         competency
@@ -82,7 +87,7 @@ def validate_position(position: str) -> pd.DataFrame:
             }
 
             results = evaluate_position_fit(
-                formation=FORMATION,
+                formation=formation,
                 position_group=position,
                 competencies=competencies,
             )
@@ -115,17 +120,21 @@ def validate_position(position: str) -> pd.DataFrame:
     return pd.DataFrame(records)
 
 
-def print_position_report(position: str, data: pd.DataFrame) -> None:
+def print_position_report(
+    position: str,
+    data: pd.DataFrame,
+    formation: str,
+) -> None:
     """Print validation diagnostics for one position."""
 
     role_titles = [
         role["title"]
-        for role in ROLE_LIBRARY[FORMATION][position].values()
+        for role in ROLE_LIBRARY[formation][position].values()
     ]
 
     print("\n")
     print("=" * 100)
-    print(f"{FORMATION} — {position} CROSS-LEAGUE VALIDATION")
+    print(f"{formation} — {position} CROSS-LEAGUE VALIDATION")
     print("=" * 100)
 
     print("\nPOPULATION")
@@ -195,19 +204,28 @@ def print_position_report(position: str, data: pd.DataFrame) -> None:
     print("\nOVERALL BEST FIT DISTRIBUTION")
     print("-" * 60)
 
-    overall = data["Best Fit"].value_counts()
-    overall_pct = (
+    overall = (
         data["Best Fit"]
-        .value_counts(normalize=True)
+        .value_counts()
+        .reindex(role_titles, fill_value=0)
+    )
+
+    overall_pct = (
+        overall
+        .div(len(data))
         .mul(100)
         .round(1)
     )
 
-    for role, count in overall.items():
+    for role in role_titles:
+        count = int(overall[role])
+
+        marker = "  <-- DEAD ROLE" if count == 0 else ""
+
         print(
             f"{role:<30} "
             f"{count:>4} "
-            f"({overall_pct[role]:>5.1f}%)"
+            f"({overall_pct[role]:>5.1f}%){marker}"
         )
 
     print("\nROLE LEADERS")
@@ -228,23 +246,53 @@ def print_position_report(position: str, data: pd.DataFrame) -> None:
         )
 
 
+def parse_args() -> argparse.Namespace:
+
+    parser = argparse.ArgumentParser(
+        description="ScoutVision Tactical Fit cross-league validator."
+    )
+
+    parser.add_argument(
+        "--formation",
+        default="4-3-3",
+        choices=list(ROLE_LIBRARY.keys()),
+        help="Formation to validate.",
+    )
+
+    return parser.parse_args()
+
+
 def main() -> None:
 
+    args = parse_args()
+    formation = args.formation
+    positions = list(ROLE_LIBRARY[formation].keys())
+
     print("=" * 100)
-    print("SCOUTVISION TACTICAL FIT V1 — FULL 4-3-3 VALIDATION")
+    print(
+        f"SCOUTVISION TACTICAL FIT V1 — "
+        f"FULL {formation} VALIDATION"
+    )
     print("=" * 100)
+
+    print("\nPOSITIONS")
+    print(", ".join(positions))
 
     all_results = []
 
-    for position in POSITIONS:
+    for position in positions:
 
-        data = validate_position(position)
+        data = validate_position(
+            position,
+            formation=formation,
+        )
 
         all_results.append(data)
 
         print_position_report(
             position,
             data,
+            formation,
         )
 
     combined = pd.concat(
