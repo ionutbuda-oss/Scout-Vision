@@ -209,37 +209,39 @@ ROLE_MODELS: Final[dict[str, RoleModel]] = {
         "Ball Carrying": {
             "weight": 0.35,
             "metrics": {
-                "Successful dribbles, %": 0.35,
-                "Progressive runs per 90": 0.30,
+                "Successful dribbles, %": 0.30,
+                "Progressive runs per 90": 0.25,
                 "Dribbles per 90": 0.20,
-                "Accelerations per 90": 0.15,
+                "Offensive duels won, %": 0.15,
+                "Accelerations per 90": 0.10,
             },
         },
         "Chance Creation": {
             "weight": 0.25,
             "metrics": {
-                "xA per 90": 0.35,
+                "xA per 90": 0.30,
                 "Key passes per 90": 0.25,
-                "Smart passes per 90": 0.20,
+                "Smart passes per 90": 0.25,
                 "Accurate smart passes, %": 0.20,
             },
         },
         "Goal Threat": {
             "weight": 0.20,
             "metrics": {
-                "Goals per 90": 0.45,
                 "xG per 90": 0.35,
-                "Goal conversion, %": 0.20,
+                "Goals per 90": 0.30,
+                "Touches in box per 90": 0.20,
+                "Goal conversion, %": 0.15,
             },
         },
         "Combination Play": {
             "weight": 0.20,
             "metrics": {
-                "Accurate passes, %": 0.25,
-                "Through passes per 90": 0.25,
-                "Accurate through passes, %": 0.20,
-                "Passes per 90": 0.15,
-                "xA per 90": 0.15,
+                "Through passes per 90": 0.30,
+                "Passes to final third per 90": 0.25,
+                "Accurate passes, %": 0.20,
+                "Accurate through passes, %": 0.15,
+                "Passes per 90": 0.10,
             },
         },
         "Defensive Contribution": {
