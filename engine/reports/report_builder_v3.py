@@ -207,29 +207,63 @@ def build_report_context(
 
     competencies: list[dict[str, Any]] = []
     kpi_groups: list[dict[str, Any]] = []
+    supporting_indicators: list[dict[str, Any]] = []
 
     for competency_name, config in ROLE_MODELS[position_group].items():
+
+        competency_weight = float(config["weight"])
+
+        # All competencies remain available for DNA and tactical evaluation.
         score = number(row[_score_column(row, competency_name)])
+
         competencies.append({
             "name": competency_name,
             "score": round(score, 2),
             "score_display": f"{score:.0f}",
-            "weight": f"{float(config['weight']) * 100:.0f}%",
+            "weight": f"{competency_weight * 100:.0f}%",
         })
 
         metrics = []
+
         for metric_name, metric_weight in config["metrics"].items():
+
             if metric_name not in row.index:
-                raise ReportDataError(f"Missing real KPI column: {metric_name}")
-            percentile = _percentile(row, metric_name)
-            metrics.append({
-                "source_name": metric_name,
-                "name": metric_display_name(metric_name),
-                "value": format_metric(metric_name, row[metric_name]),
-                "weight": f"{float(metric_weight) * 100:.0f}%",
-                "percentile": None if percentile is None else round(percentile),
+                metric_entry = {
+                    "source_name": metric_name,
+                    "name": metric_display_name(metric_name),
+                    "value": "N/A",
+                    "weight": f"{float(metric_weight) * 100:.0f}%",
+                    "percentile": None,
+                }
+            else:
+                percentile = _percentile(row, metric_name)
+
+                metric_entry = {
+                    "source_name": metric_name,
+                    "name": metric_display_name(metric_name),
+                    "value": format_metric(metric_name, row[metric_name]),
+                    "weight": f"{float(metric_weight) * 100:.0f}%",
+                    "percentile": None if percentile is None else round(percentile),
+                }
+
+            metrics.append(metric_entry)
+
+            # Weight 0 metrics are displayed only as supporting information.
+            if competency_weight == 0 and metric_entry["value"] != "N/A":
+                supporting_indicators.append({
+                    "name": metric_entry["name"],
+                    "value": metric_entry["value"],
+                    "percentile": metric_entry["percentile"],
+                })
+
+        # Only weighted competencies are recruitment KPIs.
+        if competency_weight > 0:
+            kpi_groups.append({
+                "name": competency_name,
+                "weight": f"{competency_weight * 100:.0f}%",
+                "metrics": metrics,
             })
-        kpi_groups.append({"name": competency_name, "weight": f"{float(config['weight']) * 100:.0f}%", "metrics": metrics})
+
 
     dna_v3 = build_player_dna_v3(
         position_group,
@@ -403,6 +437,7 @@ def build_report_context(
         "confidence": _confidence(row),
         "competencies": competencies,
         "kpi_groups": kpi_groups,
+        "supporting_indicators": supporting_indicators,
         "player_dna": dna_v3,
         "profile_type": profile_type,
         "development": development,

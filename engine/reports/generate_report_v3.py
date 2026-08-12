@@ -10,7 +10,7 @@ import pandas as pd
 from .renderer import render_html, render_pdf
 from .report_builder_v3 import build_report_context, safe_filename
 
-DEFAULT_RANKINGS = Path("outputs/rankings/France_L3_U25_rankings.xlsx")
+DEFAULT_RANKINGS = Path("outputs/rankings/France_Ligue_3_U25_rankings.xlsx")
 DEFAULT_OUTPUT = Path("outputs/scouting_reports")
 
 
@@ -39,7 +39,7 @@ def generate_report(
         ranked_frame=ranked,
     )
     module_dir = Path(__file__).resolve().parent
-    template_path = module_dir / "templates_v2" / "recruitment_report_v2.html"
+    template_path = module_dir / "templates_v3" / "recruitment_report_2pages.html"
 
     slug = safe_filename(row["Player"])
     html_path = output_folder / f"{slug}.html"
