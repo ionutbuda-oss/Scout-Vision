@@ -216,12 +216,13 @@ def build_report_context(
         # All competencies remain available for DNA and tactical evaluation.
         score = number(row[_score_column(row, competency_name)])
 
-        competencies.append({
-            "name": competency_name,
-            "score": round(score, 2),
-            "score_display": f"{score:.0f}",
-            "weight": f"{competency_weight * 100:.0f}%",
-        })
+        if competency_weight > 0:
+            competencies.append({
+                "name": competency_name,
+                "score": round(score, 2),
+                "score_display": f"{score:.0f}",
+                "weight": f"{competency_weight * 100:.0f}%",
+            })
 
         metrics = []
 
