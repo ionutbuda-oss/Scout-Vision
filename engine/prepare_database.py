@@ -343,3 +343,15 @@ def prepare_database(settings: Settings) -> dict[str, int]:
         "watchlist_players": len(watchlist),
         "insufficient_players": len(insufficient),
     }
+
+
+if __name__ == "__main__":
+    settings = Settings()
+
+    result = prepare_database(settings)
+
+    print("✅ Database prepared")
+    print(settings.prepared_file)
+
+    for key, value in result.items():
+        print(f"{key}: {value}")

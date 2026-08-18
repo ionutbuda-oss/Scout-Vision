@@ -11,6 +11,11 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from .summary_generator_v3 import generate_executive_summary_v3
+from .archetype_ranking import (
+    ARCHETYPE_WEIGHTS,
+    ARCHETYPE_POSITIONS,
+    calculate_archetype_score,
+)
 
 import pandas as pd
 
@@ -27,15 +32,52 @@ except ModuleNotFoundError:
     from engine.score_players import ROLE_MODELS
 
 
-class ReportDataError(RuntimeError):
-    """Raised when a report cannot be built truthfully from available data."""
-
 
 SCORE_ALIASES = {
     "Distribution": ("Distribution Score", "Build-up Score"),
     "Offensive Duels": ("Offensive Duels Score", "Duels Score"),
 }
 
+
+class ReportDataError(RuntimeError):
+    """Raised when a report cannot be built truthfully from available data."""
+
+
+
+
+def determine_report_archetype(row, position_group):
+    metrics = {}
+
+    for column in row.index:
+        if column.endswith(" Score"):
+            name = column.replace(" Score", "")
+            value = row[column]
+
+            if pd.notna(value):
+                metrics[name] = float(value)
+
+    scores = {}
+
+    for archetype in ARCHETYPE_WEIGHTS:
+
+        allowed_positions = ARCHETYPE_POSITIONS.get(archetype)
+
+        if allowed_positions:
+            if position_group not in allowed_positions:
+                continue
+
+        scores[archetype] = calculate_archetype_score(
+            metrics,
+            archetype,
+        )
+
+    if not scores:
+        return "COMPLETE PROFILE"
+
+    return max(
+        scores,
+        key=scores.get,
+    )
 
 def safe_filename(value: object) -> str:
     normalized = unicodedata.normalize("NFKD", str(value))
@@ -239,10 +281,16 @@ def build_report_context(
             else:
                 percentile = _percentile(row, metric_name)
 
+                raw_value = pd.to_numeric(
+                    pd.Series([row[metric_name]]),
+                    errors="coerce"
+                ).iloc[0]
+
                 metric_entry = {
                     "source_name": metric_name,
                     "name": metric_display_name(metric_name),
                     "value": format_metric(metric_name, row[metric_name]),
+                    "bar_value": 0 if pd.isna(raw_value) else float(raw_value),
                     "weight": f"{float(metric_weight) * 100:.0f}%",
                     "percentile": None if percentile is None else round(percentile),
                 }
@@ -276,20 +324,44 @@ def build_report_context(
     # Convert internal DNA classification into club-facing language.
     identity_type = dna_v3["identity_type"]
 
-    profile_type_map = {
-        "Clear Specialist": "CLEAR SPECIALIST PROFILE",
-        "Specialist": "SPECIALIST PROFILE",
-        "Hybrid Candidate": "VERSATILE PROFILE",
-        "Complete Candidate": "COMPLETE PROFILE",
-        "Uncertain": "MULTI-ROLE PROFILE",
-    }
+    if identity_type == "Hybrid Candidate":
+        if position_group in ("ST", "WINGER", "AM"):
+            profile_type = "MULTI-SKILL ATTACKER"
+        elif position_group in ("CB", "FB_WB"):
+            profile_type = "MULTI-SKILL DEFENDER"
+        elif position_group in ("DM", "CM"):
+            profile_type = "MULTI-SKILL MIDFIELDER"
+        else:
+            profile_type = "MULTI-SKILL PLAYER"
 
-    profile_type = profile_type_map.get(
-        identity_type,
-        "PLAYER PROFILE",
-    )
+    elif identity_type == "Complete Candidate":
+        if position_group in ("ST", "WINGER", "AM"):
+            profile_type = "COMPLETE ATTACKER"
+        elif position_group in ("CB", "FB_WB"):
+            profile_type = "COMPLETE DEFENDER"
+        elif position_group in ("DM", "CM"):
+            profile_type = "COMPLETE MIDFIELDER"
+        else:
+            profile_type = "COMPLETE PLAYER"
+
+    elif identity_type == "Clear Specialist":
+        profile_type = "SPECIALIST PROFILE"
+
+    elif identity_type == "Specialist":
+        profile_type = "SPECIALIST PROFILE"
+
+    elif identity_type == "Uncertain":
+        profile_type = "MULTI-ROLE PROFILE"
+
+    else:
+        profile_type = "PLAYER PROFILE"
 
     development = min(competencies, key=lambda item: item["score"])
+
+    player_archetype = determine_report_archetype(
+        row,
+        position_group,
+    )
     score_column = "Scout Score" if "Scout Score" in row.index else "Recruitment Score"
     if score_column not in row.index:
         raise ReportDataError("Missing Scout Score / Recruitment Score column.")
@@ -332,16 +404,18 @@ def build_report_context(
         competencies=competencies,
         dna_v3=dna_v3,
         profile_type=profile_type,
+        position_group=position_group,
     )
 
     # --------------------------------------------------------
     # TACTICAL FIT
     # --------------------------------------------------------
 
-    competency_scores = {
-        item["name"]: float(item["score"])
-        for item in competencies
-    }
+    tactical_competency_scores = {}
+
+    for competency_name, config in ROLE_MODELS[position_group].items():
+        score_column = _score_column(row, competency_name)
+        tactical_competency_scores[competency_name] = float(row[score_column])
 
     tactical_formations = []
 
@@ -354,7 +428,8 @@ def build_report_context(
             role_results = evaluate_position_fit(
                 formation=formation,
                 position_group=position_group,
-                competencies=competency_scores,
+                competencies=tactical_competency_scores,
+                archetype=player_archetype,
             )
         except TacticalFitError:
             continue
@@ -423,6 +498,7 @@ def build_report_context(
             "competition": competition_name,
             "age": integer(row["Age"]),
             "foot": clean_text(row.get("Foot")).title(),
+            "transfermarkt_url": clean_text(row.get("Transfermarkt URL")),
             "minutes": f"{integer(row.get('Minutes played')):,}" if integer(row.get("Minutes played")) > 0 else "N/A",
             "matches": integer(row["Matches played"]),
             "recommendation": clean_text(row.get("Recommendation")),
@@ -441,6 +517,7 @@ def build_report_context(
         "supporting_indicators": supporting_indicators,
         "player_dna": dna_v3,
         "profile_type": profile_type,
+        "player_archetype": player_archetype,
         "development": development,
         "executive_summary": executive_summary,
         "tactical_fit": tactical_fit,

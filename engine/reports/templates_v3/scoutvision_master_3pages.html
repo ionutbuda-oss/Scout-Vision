@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ player.name }} | ScoutVision Recruitment Report v3</title>
+  <style>:root{--bg:#06101f;--bg2:#0a1830;--panel:#0d2038;--panel2:#102742;--text:#edf5ff;--muted:#8fa6bf;--line:rgba(151,183,216,.22);--blue:#3b82f6;--cyan:#38bdf8;--green:#2dd4bf;--amber:#f6c453;--orange:#fb923c;--red:#f87171;--track:rgba(143,166,191,.18)}
+*{box-sizing:border-box}html,body{margin:0;background:#d6dde5;color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{size:A4;margin:0}
+.report-page{
+width:210mm;
+height:297mm;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+position:relative;
+page-break-after:always;
+background:radial-gradient(circle at 78% 4%,rgba(56,189,248,.13),transparent 25%),linear-gradient(145deg,var(--bg),var(--bg2) 70%,#071323)
+}.report-page:last-child{page-break-after:auto}
+.topbar,.page-header{height:20mm;padding:0 12mm;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(2,10,22,.52)}
+.brand{display:flex;align-items:center;gap:3mm;font-size:6mm;font-weight:850;letter-spacing:.08em}.brand.compact{font-size:4.5mm}.brand-mark{width:9mm;height:9mm;border:1px solid var(--cyan);display:grid;place-items:center;color:var(--cyan);font-size:3mm;letter-spacing:0}.document-type{text-align:right}.document-type span{display:block;font-size:3.5mm;font-weight:750}.document-type small{display:block;margin-top:.8mm;color:var(--muted);font-size:2.1mm;letter-spacing:.08em}
+.hero{height:52mm;padding:7mm 12mm;display:grid;grid-template-columns:1fr 56mm;gap:8mm;border-bottom:1px solid var(--line)}.identity{min-width:0}.eyebrow,.section-kicker,.section-label{color:var(--cyan);font-size:2.5mm;font-weight:800;letter-spacing:.1em}.identity h1{margin:3mm 0 1.5mm;font-size:13mm;line-height:.95;letter-spacing:-.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.role{color:#87b8ff;font-size:4.2mm;font-weight:750;text-transform:uppercase}.meta{display:flex;gap:6mm;margin-top:3mm;color:#dbe9f8;font-size:3.4mm;font-weight:600}.meta span+span:before{content:"•";margin-right:6mm;color:var(--blue)}
+.score-panel{padding-left:7mm;border-left:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;text-align:center}.score-panel>span{font-size:2.6mm;color:var(--muted);letter-spacing:.08em}.score-panel>strong{font-size:18mm;line-height:1;color:var(--cyan)}.score-track{height:1.6mm;margin-top:3mm;background:var(--track);border-radius:99px;overflow:hidden}.score-track i,.bar i,.confidence-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:inherit}.score-scale{display:flex;justify-content:space-between;margin-top:1mm;color:var(--muted);font-size:2mm}.ranking-note{margin-top:3mm;color:var(--muted);font-size:2.4mm}.ranking-note b{color:var(--text)}
+.facts{height:20mm;display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--line);background:rgba(13,32,56,.62)}.facts div{display:grid;place-content:center;gap:.8mm;text-align:center;border-right:1px solid var(--line)}.facts div:last-child{border-right:0}.facts span{color:var(--muted);font-size:2mm;letter-spacing:.07em}.facts strong{font-size:4mm}.facts em{color:var(--cyan);font-size:2mm;font-style:normal;font-weight:750}
+.overview-grid{flex:1;min-height:0;display:grid;grid-template-columns:1.08fr .92fr;border-bottom:1px solid var(--line)}.panel{padding:6mm 8mm}.panel+.panel{border-left:1px solid var(--line)}.panel-heading{display:flex;align-items:flex-start;justify-content:space-between}.panel-heading>div{display:flex;align-items:center;gap:2.5mm}.panel-heading>div>span{width:6mm;height:6mm;border:1px solid var(--blue);display:grid;place-items:center;color:var(--cyan);font-size:2mm}.panel-heading h2{margin:0;font-size:3.5mm;letter-spacing:.03em}.panel-heading small{color:var(--muted);font-size:2mm}.radar-panel img{width:100%;height:88mm;object-fit:contain}.competency-list{margin-top:5mm}.competency-row{display:grid;grid-template-columns:1fr 12mm;gap:1.5mm 3mm;padding:2.3mm 0;border-bottom:1px solid rgba(151,183,216,.13)}.competency-copy span{display:block;font-size:3.2mm;font-weight:650}.competency-copy small{display:block;margin-top:.5mm;color:var(--muted);font-size:2mm}.competency-row>strong{text-align:right;color:var(--cyan);font-size:4.2mm}.bar{grid-column:1/-1;height:1.5mm;background:var(--track);border-radius:99px;overflow:hidden}
+.summary-grid{flex:0 0 auto;display:grid;grid-template-columns:1.45fr .55fr;border-bottom:1px solid var(--line)}.summary-card{padding:6mm 12mm}.summary-card p{margin:3mm 0 0;color:#dce9f6;font-size:3.3mm;line-height:1.65}.profile-card{display:grid;grid-template-rows:repeat(4,1fr);border-left:1px solid var(--line)}.profile-card>div{padding:5mm 6mm;display:flex;flex-direction:column;justify-content:center}.profile-card>div+div{border-top:1px solid var(--line)}.profile-card span{color:var(--muted);font-size:2.1mm;letter-spacing:.07em}.profile-card strong{margin-top:1.7mm;font-size:4.4mm;line-height:1.1}.profile-card em{margin-top:1mm;color:var(--cyan);font-size:3mm;font-style:normal;font-weight:800}
+.player-ref{text-align:right}.player-ref span{display:block;color:var(--cyan);font-size:2.4mm;font-weight:750}.player-ref strong{display:block;margin-top:.5mm;font-size:3.2mm}
+.analysis-intro{height:31mm;padding:5mm 10mm;display:grid;grid-template-columns:1fr 93mm;gap:8mm;border-bottom:1px solid var(--line)}.analysis-intro h2{margin:1mm 0;font-size:5mm}.analysis-intro p{margin:0;color:var(--muted);font-size:2.5mm}.context-cards{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:rgba(13,32,56,.5)}.context-cards div{display:grid;place-content:center;gap:1mm;text-align:center;border-right:1px solid var(--line)}.context-cards div:last-child{border-right:0}.context-cards span{color:var(--muted);font-size:1.8mm}.context-cards strong{font-size:3mm}
+.kpi-grid{height:174mm;padding:5mm 8mm;display:grid;grid-template-columns:repeat(2,1fr);gap:4mm;align-content:stretch}.kpi-grid.kpi-count-3{grid-template-columns:repeat(3,1fr)}.kpi-card{min-width:0;border:1px solid var(--line);background:rgba(13,32,56,.64);overflow:hidden}.kpi-card header{height:14mm;padding:0 3.5mm;display:grid;grid-template-columns:7mm 1fr;align-items:center;gap:2mm;border-bottom:1px solid var(--line);background:rgba(16,39,66,.7)}.kpi-card header>span{width:6mm;height:6mm;display:grid;place-items:center;border:1px solid var(--blue);color:var(--cyan);font-size:1.9mm}.kpi-card header strong{display:block;font-size:3mm;text-transform:uppercase}.kpi-card header small{display:block;margin-top:.4mm;color:var(--muted);font-size:1.8mm}.metric-list{height:calc(100% - 14mm)}.metric-row{min-height:12mm;padding:1.5mm 3.5mm;border-bottom:1px solid rgba(151,183,216,.12)}.metric-row:last-child{border-bottom:0}.metric-main,.metric-meta{display:flex;justify-content:space-between;gap:3mm;align-items:center}.metric-main span{max-width:75%;font-size:2.35mm;overflow-wrap:anywhere}.metric-main strong{font-size:3mm}.metric-meta{margin-top:1mm;color:var(--muted);font-size:1.8mm}.metric-meta b{color:var(--cyan);font-size:2.2mm}.metric-meta b.na{color:var(--muted)}.percentile-track{height:1mm;margin-top:1.2mm;background:var(--track);border-radius:99px;overflow:hidden}.percentile-track i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:inherit}.p-high{background:var(--green)}.p-mid{background:var(--cyan)}.p-low{background:var(--amber)}.p-bottom{background:var(--orange)}.unavailable{background:transparent}
+
+.percentile-guide{
+margin:4mm 8mm;
+padding:3mm;
+border:1px solid var(--line);
+background:rgba(13,32,56,.5);
+}
+
+.percentile-guide>span{
+display:block;
+font-size:2.2mm;
+color:var(--cyan);
+font-weight:800;
+letter-spacing:.08em;
+margin-bottom:2mm;
+}
+
+.percentile-scale{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:2mm;
+}
+
+.percentile-scale div{
+text-align:center;
+}
+
+.percentile-scale strong{
+display:block;
+font-size:2.8mm;
+color:#dce9f6;
+}
+
+.percentile-scale small{
+font-size:1.8mm;
+color:var(--muted);
+}
+
+.decision-strip{height:38mm;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(13,32,56,.68)}.decision-strip article{padding:4mm 5mm;border-right:1px solid var(--line)}.decision-strip article:last-child{border-right:0}.decision-strip span{color:var(--cyan);font-size:2mm;font-weight:800;letter-spacing:.07em}.decision-strip strong{display:block;margin-top:1.2mm;font-size:3.5mm}.decision-strip p{margin:1.5mm 0 0;color:var(--muted);font-size:2mm;line-height:1.4}.confidence-bar{height:1.2mm;margin-top:2mm;background:var(--track);border-radius:99px;overflow:hidden}
+.methodology{height:20mm;display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}.methodology div{display:grid;place-content:center;gap:.8mm;text-align:center;border-right:1px solid var(--line)}.methodology div:last-child{border-right:0}.methodology span{color:var(--muted);font-size:1.8mm}.methodology strong{font-size:2.4mm;padding:0 2mm}
+
+
+/* ==========================================================
+   SCOUTVISION — TACTICAL FIT PAGE
+   ========================================================== */
+
+.tactical-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tactical-header {
+  display: grid;
+  grid-template-columns: 1fr 205px;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.tactical-header h2 {
+  margin: 5px 0 7px;
+  font-size: 25px;
+  line-height: 1.05;
+}
+
+.tactical-header p {
+  margin: 0;
+  max-width: 540px;
+  color: #687386;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.tactical-best {
+  padding: 15px 17px;
+  border-radius: 10px;
+  background: #10233f;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tactical-best span {
+  color: #93a5bc;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+
+.tactical-best strong {
+  margin-top: 5px;
+  font-size: 23px;
+  line-height: 1;
+}
+
+.tactical-best b {
+  margin-top: 7px;
+  color: #d9e6f4;
+  font-size: 9px;
+}
+
+.tactical-best em {
+  margin-top: 6px;
+  color: #59d4b4;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.tactical-player-strip {
+  display: grid;
+  grid-template-columns: 1.1fr .8fr 1.4fr .7fr;
+  border: 1px solid #dfe5ec;
+  border-radius: 9px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.tactical-player-strip div {
+  padding: 10px 12px;
+  border-right: 1px solid #e6ebf0;
+}
+
+.tactical-player-strip div:last-child {
+  border-right: 0;
+}
+
+.tactical-player-strip span,
+.tactical-methodology span {
+  display: block;
+  color: #8a96a6;
+  font-size: 6.5px;
+  font-weight: 800;
+  letter-spacing: .8px;
+}
+
+.tactical-player-strip strong {
+  display: block;
+  margin-top: 4px;
+  color: #17243a;
+  font-size: 9px;
+}
+
+.formation-fit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+}
+
+.formation-fit-card {
+  border: 1px solid #dfe5ec;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.formation-fit-card > header {
+  padding: 11px 13px;
+  background: #f5f7fa;
+  border-bottom: 1px solid #e1e6ec;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.formation-fit-card header span {
+  color: #8491a2;
+  font-size: 6px;
+  font-weight: 800;
+  letter-spacing: .9px;
+}
+
+.formation-fit-card h3 {
+  margin: 3px 0 0;
+  color: #14233a;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.formation-score {
+  text-align: right;
+}
+
+.formation-score small {
+  display: block;
+  color: #8794a5;
+  font-size: 6px;
+  font-weight: 800;
+}
+
+.formation-score strong {
+  display: block;
+  margin-top: 2px;
+  color: #14233a;
+  font-size: 18px;
+}
+
+.best-role-line {
+  padding: 9px 13px;
+  background: #eef8f5;
+  border-bottom: 1px solid #d8ebe5;
+}
+
+.best-role-line span {
+  display: block;
+  color: #6c887f;
+  font-size: 6px;
+  font-weight: 800;
+  letter-spacing: .8px;
+}
+
+.best-role-line strong {
+  display: block;
+  margin-top: 3px;
+  color: #153d35;
+  font-size: 9px;
+}
+
+.tactical-role-list {
+  padding: 5px 13px 8px;
+}
+
+.tactical-role-row {
+  position: relative;
+  padding: 8px 0 10px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.tactical-role-row:last-child {
+  border-bottom: 0;
+}
+
+.tactical-role-name {
+  display: flex;
+  align-items: center;
+  padding-right: 52px;
+}
+
+.tactical-role-name > span {
+  width: 22px;
+  color: #a3adba;
+  font-size: 6px;
+  font-weight: 800;
+}
+
+.tactical-role-name strong {
+  display: block;
+  color: #26364b;
+  font-size: 8px;
+}
+
+.tactical-role-name small {
+  display: block;
+  margin-top: 2px;
+  color: #7d8998;
+  font-size: 6px;
+}
+
+.role-fit-value {
+  position: absolute;
+  right: 0;
+  top: 8px;
+  color: #26364b;
+}
+
+.role-fit-value strong {
+  font-size: 11px;
+}
+
+.role-fit-value span {
+  color: #8994a2;
+  font-size: 6px;
+}
+
+.role-fit-track {
+  height: 3px;
+  margin-top: 6px;
+  background: #edf0f3;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.role-fit-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.fit-high {
+  background: #25aa88;
+}
+
+.fit-good {
+  background: #4f83bd;
+}
+
+.fit-mid {
+  background: #d9a744;
+}
+
+.fit-low {
+  background: #c96868;
+}
+
+.role-ineligible {
+  opacity: .52;
+}
+
+.tactical-methodology {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid #dfe5ec;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f7f9fb;
+}
+
+.tactical-methodology div {
+  padding: 9px 10px;
+  border-right: 1px solid #e2e7ec;
+}
+
+.tactical-methodology div:last-child {
+  border-right: 0;
+}
+
+.tactical-methodology strong {
+  display: block;
+  margin-top: 4px;
+  color: #354459;
+  font-size: 7px;
+}
+
+.tactical-disclaimer {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid #e0e5eb;
+  color: #8b96a5;
+  font-size: 6.5px;
+  line-height: 1.5;
+}
+
+</style>
+</head>
+<body>
+  <section class="report-page cover-page">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">SV</span><span>SCOUTVISION</span></div>
+      <div class="document-type"><span>RECRUITMENT REPORT</span><small>OBJECTIVE PLAYER PROFILING</small></div>
+    </header>
+
+    <div class="hero">
+      <div class="identity">
+        <div class="eyebrow">{{ player.position_group }} MODEL</div>
+        <h1>{{ player.name }}</h1>
+        <div class="role">{{ player.position }}</div>
+        <div class="meta"><span>{{ player.team }}</span><span>{{ player.competition }}</span></div>
+      </div>
+      <aside class="score-panel">
+        <span>SCOUT SCORE</span>
+        <strong>{{ score.display }}</strong>
+        <div class="score-track"><i style="width:{{ score.value }}%"></i></div>
+        <div class="score-scale"><span>0</span><span>100</span></div>
+      </aside>
+    </div>
+
+    <div class="facts">
+      <div><span>AGE</span><strong>{{ player.age }}</strong></div>
+      <div><span>FOOT</span><strong>{{ player.foot }}</strong></div>
+      <div><span>MINUTES</span><strong>{{ player.minutes }}</strong></div>
+      <div><span>MATCHES</span><strong>{{ player.matches }}</strong></div>
+      <div><span>SEASON PERFORMANCE</span><strong>{{ score.performance }}</strong></div>
+      <div><span>DATA CONFIDENCE</span><strong>100</strong><em>HIGH</em></div>
+    </div>
+
+    {% if player.transfermarkt_url %}
+    <div style="margin-top:2.5mm;margin-bottom:2mm;text-align:right;padding-right:10mm;">
+      <a href="{{ player.transfermarkt_url }}"
+         target="_blank"
+         rel="noopener"
+         style="color:var(--cyan);font-size:2.6mm;font-weight:750;text-decoration:none;">
+        TRANSFERMARKT PROFILE ↗
+      </a>
+    </div>
+    {% endif %}
+
+    <div class="overview-grid">
+      <article class="panel radar-panel">
+        <div class="panel-heading"><div><span>01</span><h2>POSITION PROFILE</h2></div><small>Scores by weighted competency</small></div>
+
+<img src="{{ radar_uri }}" alt="Position profile radar">
+
+</article>
+
+      <article class="panel competency-panel">
+        <div class="panel-heading"><div><span>02</span><h2>COMPETENCY PROFILE</h2></div><small>0–100 model scores</small></div>
+        <div class="competency-list">
+
+{% for item in competencies %}
+
+<div class="competency-row">
+  <div class="competency-copy">
+    <span>{{ item.name }}</span>
+    <small>Model weight {{ item.weight }}</small>
+  </div>
+
+  <strong>{{ item.score|round(0) }}</strong>
+
+  <div class="bar">
+    <i style="width:{{ item.score }}%"></i>
+  </div>
+</div>
+
+{% endfor %}
+
+</div></div>
+      </article>
+    </div>
+
+    <div class="summary-grid">
+      <article class="summary-card">
+        <div class="section-label">EXECUTIVE SUMMARY</div>
+        <p>{{ executive_summary }}</p>
+      </article>
+      <aside class="profile-card">
+
+        <div>
+          <span>PLAYER ARCHETYPE</span>
+        <strong>{{ player_archetype }}</strong></div>
+
+        <div>
+          <span>PROFILE TYPE</span>
+          <strong>{{ profile_type }}</strong>
+        </div>
+
+        <div>
+          <span>DEVELOPMENT AREA</span>
+          <strong>{{ development.name }}</strong>
+          <em>{{ development.score|round(0) }} / 100</em>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+  <section class="report-page analysis-page">
+    <header class="page-header">
+      <div class="brand compact"><span class="brand-mark">SV</span><span>SCOUTVISION</span></div>
+      <div class="player-ref">
+        <span>{{ player.name }}</span>
+        <strong>{{ player.position }} · {{ player.competition }}</strong>
+      </div>
+    </header>
+
+    <div class="analysis-intro">
+      <div>
+        <span class="section-kicker">PERFORMANCE DETAIL</span>
+        <h2>Position-model indicators</h2>
+        <p>Player values are shown with model weights and within-position percentiles where available.</p>
+      </div>
+      <div class="context-cards">
+        <div><span>POSITION POOL</span><strong>18</strong></div>
+        <div><span>TOP BAND</span><strong>Top 6%</strong></div>
+        <div><span>MODEL</span><strong>{{ player.position_group }}</strong></div>
+      </div>
+    </div>
+
+
+<div class="kpi-grid">
+
+{% for competency in kpi_groups %}
+
+<article class="kpi-card">
+
+<header>
+<span>{{ "%02d"|format(loop.index) }}</span>
+<div>
+<strong>{{ competency.name }}</strong>
+<small>Competency weight {{ competency.weight }}</small>
+</div>
+</header>
+
+<div class="metric-list">
+
+{% for metric in competency.metrics %}
+
+<div class="metric-row">
+
+<div class="metric-main">
+<span>{{ metric.name }}</span>
+<strong>{{ metric.value }}</strong>
+</div>
+
+<div class="metric-meta">
+<span>Metric weight {{ metric.weight }}</span>
+<b>
+{% if metric.percentile is not none %}
+P{{ metric.percentile }}
+{% else %}
+N/A
+{% endif %}
+</b>
+</div>
+
+<div class="percentile-track">
+<i style="width:{{ metric.percentile or 0 }}%"></i>
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</article>
+
+{% endfor %}
+
+</div>
+
+
+<div class="percentile-guide">
+  <span>PERCENTILE GUIDE — WITHIN POSITION COMPARISON</span>
+
+  <div class="percentile-scale">
+    <div>
+      <strong>P90–100</strong>
+      <small>Elite level</small>
+    </div>
+
+    <div>
+      <strong>P75–89</strong>
+      <small>Strong competitive level</small>
+    </div>
+
+    <div>
+      <strong>P50–74</strong>
+      <small>Competitive range</small>
+    </div>
+
+    <div>
+      <strong>P25–49</strong>
+      <small>Below average</small>
+    </div>
+
+    <div>
+      <strong>P0–24</strong>
+      <small>Development priority</small>
+    </div>
+  </div>
+</div>
+
+
+<div class="decision-strip">
+      <article>
+        <span>RECRUITMENT STATUS</span>
+        <strong>B | Monitor</strong>
+        <p>Use this data profile alongside live observation, video review and contextual recruitment requirements.</p>
+      </article>
+      <article>
+        <span>DATA CONFIDENCE</span>
+        <strong>100 / 100</strong>
+        <div class="confidence-bar"><i style="width:{{ confidence.value }}%"></i></div>
+        <p>{{ evidence_note }}</p>
+      </article>
+      <article>
+        <span>DEVELOPMENT FOCUS</span>
+        <strong>{{ development.name }}</strong>
+        <p><strong>{{ development.score|round(0) }} / 100</strong></p>
+      </article>
+    </div>
+
+    <div class="methodology">
+      <div><span>SCORING</span><strong>Weighted position model</strong></div>
+      <div><span>COMPARISON</span><strong>Same-position percentile</strong></div>
+      <div><span>SAMPLE</span><strong>{{ player.minutes }} minutes · {{ player.matches }} matches</strong></div>
+      <div><span>INTERPRETATION</span><strong>Decision-support, not final verdict</strong></div>
+    </div>
+  </section>
+
+
+<section class="report-page tactical-page">
+
+  <div class="tactical-header">
+    <div>
+      <span class="section-kicker">TACTICAL FIT</span>
+      <h2>Formation & role suitability</h2>
+      <p>
+        Role-fit scores are calculated from the player's position-specific
+        competency profile and the tactical requirements of each formation.
+      </p>
+    </div>
+
+
+    <div class="tactical-best">
+        <span>BEST OVERALL FIT</span>
+
+        {% if tactical_fit.best_overall %}
+          <strong>{{ tactical_fit.best_overall.formation }}</strong>
+          <b>{{ tactical_fit.best_overall.role }}</b>
+          <em>{{ tactical_fit.best_overall.fit_display }} / 100</em>
+        {% else %}
+          <strong>N/A</strong>
+          <b>No eligible role</b>
+          <em>-</em>
+        {% endif %}
+
+      </div>
+
+  </div>
+
+  <div class="tactical-player-strip">
+    <div>
+      <span>PLAYER</span>
+      <strong>{{ player.name }}</strong>
+    </div>
+    <div>
+      <span>POSITION MODEL</span>
+      <strong>{{ player.position_group }}</strong>
+    </div>
+    <div>
+      <span>PLAYER ARCHETYPE</span>
+      <strong>{{ player_archetype }}</strong>
+    </div>
+    <div>
+      <span>FORMATIONS TESTED</span>
+      <strong>{{ tactical_fit.formations|length }}</strong>
+    </div>
+  </div>
+
+  <div class="formation-fit-grid">
+
+{% for formation in tactical_fit.formations %}
+
+<article class="formation-fit-card">
+
+  <header>
+    <div>
+      <span>FORMATION {{ "%02d"|format(loop.index) }}</span>
+      <h3>{{ formation.formation }}</h3>
+    </div>
+
+    {% if formation.best_role %}
+    <div class="formation-score">
+      <small>BEST FIT</small>
+      <strong>{{ formation.best_role.fit_display }}</strong>
+    </div>
+    {% endif %}
+
+  </header>
+
+
+  {% if formation.best_role %}
+  <div class="best-role-line">
+    <span>BEST ROLE</span>
+    <strong>{{ formation.best_role.role }}</strong>
+  </div>
+  {% endif %}
+
+
+  <div class="tactical-role-list">
+
+  {% for role in formation.roles %}
+
+    <div class="tactical-role-row">
+
+      <div class="tactical-role-name">
+        <span>{{ "%02d"|format(loop.index) }}</span>
+
+        <div>
+          <strong>{{ role.role }}</strong>
+
+          {% if role.eligible %}
+          <small>Eligible</small>
+          {% else %}
+          <small>Not eligible</small>
+          {% endif %}
+
+        </div>
+      </div>
+
+
+      <div class="role-fit-value">
+        <strong>{{ role.fit_display }}</strong>
+        <span>/100</span>
+      </div>
+
+
+      <div class="role-fit-track">
+        <i
+          class="fit-good"
+          style="width:{{ role.fit_score }}%"
+        ></i>
+      </div>
+
+
+    </div>
+
+  {% endfor %}
+
+  </div>
+
+</article>
+
+{% endfor %}
+
+</div>
+
+
+<div class="tactical-methodology">
+    <div>
+      <span>ROLE FIT</span>
+      <strong>Weighted competency model</strong>
+    </div>
+    <div>
+      <span>ELIGIBILITY</span>
+      <strong>Role minimums applied where defined</strong>
+    </div>
+    <div>
+      <span>COMPARISON</span>
+      <strong>Formation-specific tactical requirements</strong>
+    </div>
+    <div>
+      <span>USE</span>
+      <strong>Recruitment decision-support</strong>
+    </div>
+  </div>
+
+  <div class="tactical-disclaimer">
+    Tactical Fit describes compatibility with the defined ScoutVision role
+    model. It should be interpreted alongside performance data, video analysis,
+    team principles and live scouting.
+  </div>
+
+</section>
+
+
+</body>
+</html>

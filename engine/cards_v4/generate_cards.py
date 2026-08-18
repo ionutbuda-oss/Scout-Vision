@@ -24,7 +24,7 @@ def generate_single_player_card(rankings_file:Path,player_name:str,competition_n
     row=m.iloc[0];ctx=build_card_context(row,competition_name=competition_name);template=Path(__file__).resolve().parent/'templates'/'player_card.html';slug=safe_filename(row['Player']);hp=output_folder/f'{slug}.html';pp=output_folder/f'{slug}.png';render_html(template,ctx,hp);return render_png(hp,pp)
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('--rankings',type=Path,default=DEFAULT_RANKINGS);ap.add_argument('--output',type=Path,default=DEFAULT_OUTPUT);ap.add_argument('--competition',default='France National');ap.add_argument('--top',type=int,default=5);ap.add_argument('--player')
+    ap=argparse.ArgumentParser();ap.add_argument('--rankings',type=Path,default=DEFAULT_RANKINGS);ap.add_argument('--output',type=Path,default=DEFAULT_OUTPUT);ap.add_argument('--competition',default='France - Ligue 3');ap.add_argument('--top',type=int,default=5);ap.add_argument('--player')
     a=ap.parse_args()
     if a.player:print(generate_single_player_card(a.rankings,a.player,a.competition,a.output.parent/'concept_b_test').resolve())
     else:print(f'Created {len(create_top_player_cards(a.rankings,a.output,a.competition,a.top))} cards in {a.output.resolve()}')

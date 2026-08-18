@@ -14,6 +14,7 @@ class TacticalFitError(ValueError):
 def calculate_role_fit(
     competencies: Mapping[str, float],
     role: Mapping[str, Any],
+    archetype: str | None = None,
 ) -> float:
     """Calculate weighted tactical-role fit on a 0-100 scale."""
 
@@ -34,6 +35,16 @@ def calculate_role_fit(
         for name, weight in weights.items()
     )
 
+    # Archetype compatibility bonus
+    if archetype:
+        preferred = role.get(
+            "preferred_archetypes",
+            []
+        )
+
+        if archetype in preferred:
+            score += 5.0
+
     return round(score, 1)
 
 
@@ -41,6 +52,7 @@ def evaluate_position_fit(
     formation: str,
     position_group: str,
     competencies: Mapping[str, float],
+    archetype: str | None = None,
 ) -> list[dict[str, Any]]:
     """Rank all compatible tactical roles for a position."""
 
@@ -63,6 +75,7 @@ def evaluate_position_fit(
         score = calculate_role_fit(
             competencies,
             role,
+            archetype,
         )
 
         minimums = role.get("minimums", {})

@@ -1,0 +1,503 @@
+:root{
+--bg:#06101f;
+--bg2:#0a1830;
+--panel:#0d2038;
+--panel2:#102742;
+--text:#edf5ff;
+--muted:#8fa6bf;
+--line:rgba(151,183,216,.22);
+--blue:#3b82f6;
+--cyan:#38bdf8;
+--green:#2dd4bf;
+}
+
+*{
+box-sizing:border-box;
+}
+
+html,body{
+margin:0;
+background:#d6dde5;
+font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+color:var(--text);
+}
+
+body{
+-webkit-print-color-adjust:exact;
+print-color-adjust:exact;
+}
+
+
+@page{
+size:A4;
+margin:0;
+}
+
+
+.report-page{
+
+width:210mm;
+height:297mm;
+background:
+radial-gradient(circle at 80% 5%,rgba(56,189,248,.15),transparent 25%),
+linear-gradient(145deg,var(--bg),var(--bg2));
+
+overflow:hidden;
+page-break-after:always;
+position:relative;
+
+display:flex;
+flex-direction:column;
+
+}
+
+
+
+/* HEADER */
+
+.topbar{
+
+height:20mm;
+
+padding:0 12mm;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+border-bottom:1px solid var(--line);
+
+background:rgba(2,10,22,.5);
+
+}
+
+
+.brand{
+
+display:flex;
+align-items:center;
+gap:3mm;
+
+font-size:6mm;
+font-weight:850;
+letter-spacing:.08em;
+
+}
+
+
+.brand-mark{
+
+width:9mm;
+height:9mm;
+
+display:grid;
+place-items:center;
+
+border:1px solid var(--cyan);
+
+color:var(--cyan);
+
+font-size:3mm;
+
+}
+
+
+
+.document-type{
+
+text-align:right;
+
+}
+
+
+.document-type span{
+
+display:block;
+
+font-size:3.5mm;
+font-weight:750;
+
+}
+
+
+.document-type small{
+
+display:block;
+
+margin-top:1mm;
+
+font-size:2mm;
+
+color:var(--muted);
+
+}
+
+
+
+/* HERO */
+
+.hero{
+
+height:55mm;
+
+padding:8mm 12mm;
+
+display:grid;
+
+grid-template-columns:1fr 55mm;
+
+gap:8mm;
+
+border-bottom:1px solid var(--line);
+
+}
+
+
+
+.eyebrow{
+
+color:var(--cyan);
+
+font-size:2.5mm;
+
+font-weight:800;
+
+letter-spacing:.1em;
+
+}
+
+
+.identity h1{
+
+margin:3mm 0;
+
+font-size:13mm;
+
+line-height:1;
+
+letter-spacing:-.04em;
+
+}
+
+
+.meta{
+
+display:flex;
+
+gap:8mm;
+
+color:#dbe9f8;
+
+font-size:3.2mm;
+
+}
+
+
+
+.score-panel{
+
+border-left:1px solid var(--line);
+
+padding-left:7mm;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+
+.score-panel span{
+
+font-size:2.5mm;
+
+color:var(--muted);
+
+}
+
+
+.score-panel strong{
+
+font-size:18mm;
+
+line-height:1;
+
+color:var(--cyan);
+
+}
+
+
+
+/* FACTS */
+
+.facts{
+
+height:20mm;
+
+display:grid;
+
+grid-template-columns:repeat(6,1fr);
+
+border-bottom:1px solid var(--line);
+
+background:rgba(13,32,56,.6);
+
+}
+
+
+.facts div{
+
+display:grid;
+
+place-content:center;
+
+text-align:center;
+
+border-right:1px solid var(--line);
+
+}
+
+
+.facts span{
+
+font-size:2mm;
+
+color:var(--muted);
+
+}
+
+
+.facts strong{
+
+font-size:3.5mm;
+
+}
+
+
+
+/* CONTENT */
+
+.panel{
+
+padding:8mm 12mm;
+
+}
+
+
+.section-kicker{
+
+color:var(--cyan);
+
+font-size:2.5mm;
+
+font-weight:800;
+
+letter-spacing:.1em;
+
+}
+
+
+.panel h1{
+
+font-size:11mm;
+
+margin:3mm 0;
+
+}
+
+
+.panel h2{
+
+font-size:5mm;
+
+}
+
+
+.panel h3{
+
+color:#87b8ff;
+
+font-size:4mm;
+
+}
+
+
+.panel p{
+
+color:#dce9f6;
+
+font-size:3.3mm;
+
+line-height:1.6;
+
+}
+
+
+
+/* COMPETENCIES */
+
+
+.competency-list{
+
+margin-top:5mm;
+
+}
+
+
+.competency-row{
+
+padding:3mm 0;
+
+border-bottom:1px solid rgba(151,183,216,.15);
+
+display:flex;
+
+justify-content:space-between;
+
+font-size:3.2mm;
+
+}
+
+
+.competency-row strong{
+
+color:var(--cyan);
+
+}
+
+
+
+/* PLAYER CARDS */
+
+
+.player-card{
+
+margin:3mm 0;
+
+padding:5mm;
+
+display:grid;
+
+grid-template-columns:12mm 1fr 35mm;
+
+align-items:center;
+
+gap:5mm;
+
+
+background:rgba(13,32,56,.75);
+
+border:1px solid var(--line);
+
+}
+
+
+
+.player-card > span{
+
+font-size:5mm;
+
+font-weight:800;
+
+color:var(--cyan);
+
+}
+
+
+
+.player-card h3{
+
+margin:0;
+
+font-size:4mm;
+
+color:white;
+
+}
+
+
+
+.player-card p{
+
+margin:1mm 0 0;
+
+font-size:2.8mm;
+
+color:var(--muted);
+
+}
+
+
+
+.player-card small{
+
+display:block;
+
+font-size:2mm;
+
+color:var(--muted);
+
+}
+
+
+
+.player-card strong{
+
+font-size:6mm;
+
+color:var(--cyan);
+
+}
+
+
+
+/* Recruitment Board Top-5 tables */
+
+.recruitment-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:4mm;
+    background:rgba(13,32,56,.72);
+    border:1px solid var(--line);
+}
+
+.recruitment-table th{
+    padding:3mm 3.5mm;
+    text-align:left;
+    font-size:2.2mm;
+    color:var(--cyan);
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    background:rgba(16,39,66,.9);
+    border-bottom:1px solid var(--line);
+}
+
+.recruitment-table td{
+    padding:3.2mm 3.5mm;
+    font-size:2.8mm;
+    color:var(--text);
+    border-bottom:1px solid rgba(151,183,216,.14);
+}
+
+.recruitment-table tbody tr:last-child td{
+    border-bottom:0;
+}
+
+.recruitment-table td:nth-child(1){
+    width:10mm;
+    color:var(--cyan);
+    font-weight:800;
+}
+
+.recruitment-table td:nth-child(5),
+.recruitment-table td:nth-child(6){
+    font-weight:800;
+}
+
+.recruitment-table td:nth-child(5){
+    color:var(--cyan);
+}

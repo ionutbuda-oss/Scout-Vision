@@ -46,20 +46,31 @@ def percentile_series(series: pd.Series) -> pd.Series:
         errors="coerce",
     )
 
-    if numeric.notna().sum() <= 1:
-        return pd.Series(
-            50.0,
-            index=series.index,
-        )
+    valid = numeric.notna()
+    valid_count = int(valid.sum())
 
-    return (
-        numeric.rank(
+    result = pd.Series(
+        float("nan"),
+        index=series.index,
+        dtype="float64",
+    )
+
+    if valid_count == 0:
+        return result
+
+    if valid_count == 1:
+        result.loc[valid] = 50.0
+        return result
+
+    result.loc[valid] = (
+        numeric.loc[valid].rank(
             method="average",
             pct=True,
-            na_option="bottom",
         )
         * 100
     )
+
+    return result
 
 
 def weighted_score(
@@ -163,11 +174,17 @@ def score_position_group(
             category_config["metrics"],
         )
 
-    # Season Performance is the unweighted arithmetic mean of all
-    # position-specific competency scores. It describes balanced seasonal
-    # output without favouring any competency from the recruitment model.
+    # Season Performance is the unweighted arithmetic mean of active
+    # position-specific competency scores. Competencies with weight 0 are
+    # supporting indicators and do not influence performance evaluation.
+    active_category_columns = [
+        f"{category_name} Score"
+        for category_name, category_config in model.items()
+        if float(category_config["weight"]) > 0
+    ]
+
     scored["Performance Score"] = (
-        scored[category_columns].mean(axis=1).round(1)
+        scored[active_category_columns].mean(axis=1).round(1)
     )
 
     # Scout Score is the weighted mean of competency scores using the
@@ -408,3 +425,16 @@ def score_players(
         "position_groups": len(ranked_groups),
         "top_players": top_players,
     }
+
+
+if __name__ == "__main__":
+    settings = Settings()
+
+    result = score_players(settings)
+
+    print("✅ Rankings generated")
+    print(settings.rankings_file)
+
+    for key, value in result.items():
+        if key != "top_players":
+            print(f"{key}: {value}")

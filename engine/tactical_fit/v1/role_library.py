@@ -10,6 +10,10 @@ ROLE_LIBRARY = {
 
             "BALL_PLAYING_CB": {
                 "title": "BALL-PLAYING CB",
+                "preferred_archetypes": [
+                    "BALL-PLAYING DEFENDER",
+                    "COMPLETE CENTRE BACK",
+                ],
                 "weights": {
                     "Distribution": 0.40,
                     "Progression": 0.35,
@@ -19,6 +23,10 @@ ROLE_LIBRARY = {
 
             "PROGRESSIVE_CB": {
                 "title": "PROGRESSIVE CB",
+                "preferred_archetypes": [
+                    "BALL-PLAYING DEFENDER",
+                    "COMPLETE CENTRE BACK",
+                ],
                 "weights": {
                     "Progression": 0.50,
                     "Distribution": 0.25,
@@ -28,6 +36,11 @@ ROLE_LIBRARY = {
 
             "DEFENSIVE_CB": {
                 "title": "DEFENSIVE CB",
+                "preferred_archetypes": [
+                    "STOPPER CENTRE BACK",
+                    "COVER DEFENDER",
+                    "COMPLETE CENTRE BACK",
+                ],
                 "weights": {
                     "Defending": 0.60,
                     "Distribution": 0.25,
@@ -226,6 +239,10 @@ ROLE_LIBRARY = {
 
             "BALL_PLAYING_CB": {
                 "title": "BALL-PLAYING CB",
+                "preferred_archetypes": [
+                    "BALL-PLAYING DEFENDER",
+                    "COMPLETE CENTRE BACK",
+                ],
                 "weights": {
                     "Distribution": 0.40,
                     "Progression": 0.35,
@@ -235,6 +252,10 @@ ROLE_LIBRARY = {
 
             "PROGRESSIVE_CB": {
                 "title": "PROGRESSIVE CB",
+                "preferred_archetypes": [
+                    "BALL-PLAYING DEFENDER",
+                    "COMPLETE CENTRE BACK",
+                ],
                 "weights": {
                     "Progression": 0.50,
                     "Distribution": 0.25,
@@ -244,6 +265,11 @@ ROLE_LIBRARY = {
 
             "DEFENSIVE_CB": {
                 "title": "DEFENSIVE CB",
+                "preferred_archetypes": [
+                    "STOPPER CENTRE BACK",
+                    "COVER DEFENDER",
+                    "COMPLETE CENTRE BACK",
+                ],
                 "weights": {
                     "Defending": 0.60,
                     "Distribution": 0.25,
@@ -472,6 +498,10 @@ ROLE_LIBRARY = {
 
             "BALL_PLAYING_CB": {
                 "title": "BALL-PLAYING CB",
+                "preferred_archetypes": [
+                    "BALL-PLAYING DEFENDER",
+                    "COMPLETE CENTRE BACK",
+                ],
                 "weights": {
                     "Distribution": 0.40,
                     "Progression": 0.35,
@@ -481,6 +511,10 @@ ROLE_LIBRARY = {
 
             "PROGRESSIVE_CB": {
                 "title": "PROGRESSIVE CB",
+                "preferred_archetypes": [
+                    "BALL-PLAYING DEFENDER",
+                    "COMPLETE CENTRE BACK",
+                ],
                 "weights": {
                     "Progression": 0.50,
                     "Distribution": 0.25,
@@ -490,6 +524,11 @@ ROLE_LIBRARY = {
 
             "DEFENSIVE_CB": {
                 "title": "DEFENSIVE CB",
+                "preferred_archetypes": [
+                    "STOPPER CENTRE BACK",
+                    "COVER DEFENDER",
+                    "COMPLETE CENTRE BACK",
+                ],
                 "weights": {
                     "Defending": 0.60,
                     "Distribution": 0.25,
@@ -777,6 +816,11 @@ ROLE_LIBRARY = {
 
             "DEFENSIVE_CB": {
                 "title": "DEFENSIVE CB",
+                "preferred_archetypes": [
+                    "STOPPER CENTRE BACK",
+                    "COVER DEFENDER",
+                    "COMPLETE CENTRE BACK",
+                ],
                 "weights": {
                     "Defending": 0.60,
                     "Distribution": 0.25,
@@ -846,4 +890,13 @@ ROLE_LIBRARY = {
 
     }
 
+}
+
+# ScoutVision additional tactical structure
+ROLE_LIBRARY["3-5-2"] = {
+    "CB": ROLE_LIBRARY["3-4-3"]["CB"],
+    "FB_WB": ROLE_LIBRARY["3-4-3"]["FB_WB"],
+    "DM": ROLE_LIBRARY["4-3-3"]["DM"],
+    "CM": ROLE_LIBRARY["4-4-2"]["CM"],
+    "ST": ROLE_LIBRARY["4-4-2"]["ST"],
 }

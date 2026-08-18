@@ -5,12 +5,12 @@ from __future__ import annotations
 from engine.config import Settings
 from engine.prepare_database import prepare_database
 from engine.score_players import score_players
-from engine.validation import validate_project
+from engine.scoring.profile_models import validate_role_models
 
 
 def main() -> None:
     settings = Settings()
-    validate_project(settings)
+    validate_role_models()
 
     print("=" * 68)
     print("SCOUTVISION — BELGIUM ENGINE VALIDATION")

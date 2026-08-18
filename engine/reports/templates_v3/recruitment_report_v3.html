@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>{{ player.name }} | ScoutVision Recruitment Report v2</title>
-  <link rel="stylesheet" href="recruitment_report_2pages.css">
+  <link rel="stylesheet" href="recruitment_report_v3.css">
 </head>
 <body>
   <section class="report-page cover-page">
@@ -69,7 +69,10 @@
           <span class="dna-score">{{ "%.1f"|format(player_dna.primary_score) }}</span></strong>
         </div>
 
-        
+        <div>
+          <span>PROFILE TYPE</span>
+          <strong>{{ profile_type }}</strong>
+        </div>
 
         <div>
           <span>DEVELOPMENT AREA</span>
@@ -102,10 +105,8 @@
       </div>
     </div>
 
-    
-  <div class="performance-dashboard">
 
-  
+<div class="kpi-section">
 
   <div class="kpi-grid kpi-count-{{ kpi_groups|length }}">
 
@@ -195,17 +196,45 @@
 
   </aside>
 
+</div>
 
 
     </div>
-  
+
+
+<div class="decision-strip">
+      <article>
+        <span>RECRUITMENT STATUS</span>
+        <strong>{{ player.recommendation }}</strong>
+        <p>Use this data profile alongside live observation, video review and contextual recruitment requirements.</p>
+      </article>
+      <article>
+        <span>DATA CONFIDENCE</span>
+        <strong>{{ confidence.display }} / 100</strong>
+        <div class="confidence-bar"><i style="width:{{ confidence.value }}%"></i></div>
+        <p>{{ evidence_note }}</p>
+      </article>
+      <article>
+        <span>DEVELOPMENT FOCUS</span>
+        <strong>{{ development.name }}</strong>
+        <p><strong>{{ development.score_display }} / 100</strong></p>
+      </article>
+    </div>
+
+    <div class="methodology">
+      <div><span>SCORING</span><strong>Weighted position model</strong></div>
+      <div><span>COMPARISON</span><strong>Same-position percentile</strong></div>
+      <div><span>SAMPLE</span><strong>{{ player.minutes }} minutes · {{ player.matches }} matches</strong></div>
+      <div><span>INTERPRETATION</span><strong>Decision-support, not final verdict</strong></div>
+      </div>
 
 </section>
 
 
+
+
+
 {% if tactical_fit.available %}
-
-
 <section class="report-page tactical-page">
 
   <div class="tactical-header">
@@ -347,12 +376,6 @@
 
 </section>
 {% endif %}
-
-
-
-
-
-
 
 </body>
 </html>

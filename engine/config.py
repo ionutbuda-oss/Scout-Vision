@@ -21,8 +21,8 @@ class Settings:
     """
 
     base_dir: Path = Path(__file__).resolve().parents[1]
-    competition_name: str = "Germany Regionalliga"
-    input_filename: str = "L3-Germania.xlsx"
+    competition_name: str = "France - National"
+    input_filename: str = "L3-France.xlsx"
     max_age: int = 25
     minimum_matches: int = 15
 

@@ -13,9 +13,9 @@ from engine.tactical_fit.v1.role_library import ROLE_LIBRARY
 LEAGUES = {
     "Belgium Challenger Pro League":
         "outputs/rankings/Belgium_Challenger_Pro_League_U25_rankings.xlsx",
-    "France National":
-        "outputs/rankings/France_National_U25_rankings.xlsx",
-    "Germany Regionalliga":
+    "France Ligue 3":
+        "outputs/rankings/France_L3_U25_rankings.xlsx",
+    "Germany 3. Liga":
         "outputs/rankings/Germany_Regionalliga_U25_rankings.xlsx",
 }
 

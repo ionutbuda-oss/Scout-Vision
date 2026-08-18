@@ -65,6 +65,47 @@ PROFILE_PHRASES = {
 }
 
 
+POSITION_ACTIONS = {
+    "ST": {
+        "Box Threat": "attacking high-value penalty-area zones",
+        "Finishing": "converting goal-scoring opportunities",
+        "Offensive Duels": "providing physical presence in attacking situations",
+        "Link Play": "connecting attacks through forward combinations",
+    },
+    "CB": {
+        "Distribution": "progressing play from defensive areas",
+        "Defending": "protecting central spaces and winning defensive actions",
+        "Aerial Defending": "dominating aerial situations and defensive duels",
+    },
+    "FB_WB": {
+        "Ball Carrying": "advancing play through wide progression",
+        "Chance Creation": "creating opportunities from wide areas",
+        "Defensive Contribution": "supporting both defensive and attacking phases",
+    },
+    "CM": {
+        "Progression": "advancing possession through midfield areas",
+        "Distribution": "controlling circulation and build-up play",
+        "Ball Security": "retaining possession under pressure",
+    },
+    "DM": {
+        "Ball Winning": "recovering possession and protecting defensive structure",
+        "Distribution": "supporting build-up through reliable passing",
+        "Ball Security": "maintaining control under pressure",
+    },
+    "AM": {
+        "Creativity": "creating advanced attacking opportunities",
+        "Chance Creation": "producing chances in attacking areas",
+        "Link Play": "connecting midfield and attacking phases",
+    },
+    "WINGER": {
+        "Ball Carrying": "breaking lines through wide carries and 1v1 actions",
+        "Chance Creation": "creating opportunities from wide positions",
+        "Finishing": "adding goal threat from advanced areas",
+    },
+}
+
+
+
 def _level(score: float) -> str:
     if score >= 90:
         return "outstanding"
@@ -82,6 +123,7 @@ def generate_executive_summary_v3(
     competencies: list[dict[str, Any]],
     dna_v3: dict[str, Any],
     profile_type: str,
+    position_group: str,
 ) -> str:
     """Return a deterministic club-facing V3 player summary."""
 
@@ -103,9 +145,15 @@ def generate_executive_summary_v3(
 
     identity = dna_v3["primary_profile"].title.title()
 
-    primary_action = ACTION_PHRASES.get(
+    primary_action = POSITION_ACTIONS.get(
+        position_group,
+        {}
+    ).get(
         primary["name"],
-        f"performing strongly in {primary['name'].lower()}",
+        ACTION_PHRASES.get(
+            primary["name"],
+            f"performing strongly in {primary['name'].lower()}",
+        ),
     )
 
     secondary_phrase = STRENGTH_PHRASES.get(

@@ -95,6 +95,8 @@
         <span class="section-kicker">PERFORMANCE DETAIL</span>
         <h2>Position-model indicators</h2>
         <p>Player values are shown with model weights and within-position percentiles where available.</p>
+
+
       </div>
       <div class="context-cards">
         <div><span>POSITION POOL</span><strong>{{ player.position_pool if player.position_pool else 'N/A' }}</strong></div>
@@ -103,24 +105,101 @@
       </div>
     </div>
 
-    <div class="kpi-grid kpi-count-{{ kpi_groups|length }}">
-      {% for group in kpi_groups %}
-      <article class="kpi-card">
-        <header><span>{{ "%02d"|format(loop.index) }}</span><div><strong>{{ group.name }}</strong><small>Competency weight {{ group.weight }}</small></div></header>
-        <div class="metric-list">
-          {% for metric in group.metrics %}
-          <div class="metric-row">
-            <div class="metric-main"><span>{{ metric.name }}</span><strong>{{ metric.value }}</strong></div>
-            <div class="metric-meta"><span>Metric weight {{ metric.weight }}</span>{% if metric.percentile is not none %}<b>P{{ metric.percentile }}</b>{% else %}<b class="na">N/A</b>{% endif %}</div>
-            <div class="percentile-track"><i class="{% if metric.percentile is none %}unavailable{% elif metric.percentile >= 75 %}p-high{% elif metric.percentile >= 50 %}p-mid{% elif metric.percentile >= 25 %}p-low{% else %}p-bottom{% endif %}" style="width:{{ metric.percentile if metric.percentile is not none else 0 }}%"></i></div>
-          </div>
-          {% endfor %}
+
+<div class="kpi-section">
+
+  <div class="kpi-grid kpi-count-{{ kpi_groups|length }}">
+
+    {% for group in kpi_groups %}
+
+    <article class="kpi-card">
+
+      <header>
+        <span>{{ "%02d"|format(loop.index) }}</span>
+        <div>
+          <strong>{{ group.name }}</strong>
+          <small>Weight {{ group.weight }}</small>
         </div>
-      </article>
-      {% endfor %}
+      </header>
+
+      <div class="metric-list">
+
+        {% for metric in group.metrics %}
+
+        <div class="metric-row">
+
+          <div class="metric-main">
+            <span>{{ metric.name }}</span>
+            <strong>{{ metric.value }}</strong>
+          </div>
+
+          <div class="metric-meta">
+            <span>Weight {{ metric.weight }}</span>
+
+            {% if metric.percentile is not none %}
+              <b>P{{ metric.percentile }}</b>
+            {% else %}
+              <b class="na">N/A</b>
+            {% endif %}
+          </div>
+
+          <div class="percentile-track">
+            <i
+            class="{% if metric.percentile is none %}unavailable{% elif metric.percentile >= 75 %}p-high{% elif metric.percentile >= 50 %}p-mid{% elif metric.percentile >= 25 %}p-low{% else %}p-bottom{% endif %}"
+            style="width:{{ metric.percentile if metric.percentile is not none else 0 }}%">
+            </i>
+          </div>
+
+        </div>
+
+        {% endfor %}
+
+      </div>
+
+    </article>
+
+    {% endfor %}
+
+  </div>
+
+
+  <aside class="percentile-panel">
+
+    <h3>Percentile Guide</h3>
+
+    <p>
+      Percentile compares the player with players from the same position group
+      within the selected competition database.
+    </p>
+
+    <p>
+      Example:
+      <b>P86</b> means the player performs better than approximately
+      86% of comparable players.
+    </p>
+
+    <div class="legend elite">
+      P90-P100 — Elite
     </div>
 
-    <div class="decision-strip">
+    <div class="legend high">
+      P75-P89 — Above average
+    </div>
+
+    <div class="legend medium">
+      P50-P74 — Average to good
+    </div>
+
+    <div class="legend low">
+      P0-P49 — Development area
+    </div>
+
+  </aside>
+
+</div>
+
+
+<div class="decision-strip">
       <article>
         <span>RECRUITMENT STATUS</span>
         <strong>{{ player.recommendation }}</strong>
@@ -156,7 +235,7 @@
       <h2>Formation & role suitability</h2>
       <p>
         Role-fit scores are calculated from the player's position-specific
-        competency profile and the tactical requirements of each formation.
+        competency profile and ScoutVision role models.
       </p>
     </div>
 
@@ -269,7 +348,7 @@
     </div>
     <div>
       <span>COMPARISON</span>
-      <strong>Formation-specific tactical requirements</strong>
+      <strong>Formation-specific role compatibility</strong>
     </div>
     <div>
       <span>USE</span>

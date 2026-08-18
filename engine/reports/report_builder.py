@@ -15,6 +15,12 @@ from .summary_generator import generate_executive_summary
 import pandas as pd
 from engine.intelligence.dna_engine_v2 import build_player_dna
 
+from engine.tactical_fit.v1.fit_engine import (
+    TacticalFitError,
+    evaluate_position_fit,
+)
+from engine.tactical_fit.v1.role_library import ROLE_LIBRARY
+
 try:
     from engine.scoring.profile_models import ROLE_MODELS
 except ModuleNotFoundError:
@@ -219,13 +225,37 @@ def build_report_context(
             })
         kpi_groups.append({"name": competency_name, "weight": f"{float(config['weight']) * 100:.0f}%", "metrics": metrics})
 
-    strongest = build_player_dna(
+    dna_raw = build_player_dna(
         position_group,
         {
             item["name"]: item["score"]
             for item in competencies
         }
     )
+
+    # Adapt DNA engine output to the structure expected by the report template.
+    profile_scores = dna_raw.get("profile_scores", [])
+
+    if profile_scores:
+        primary = profile_scores[0]
+        primary_profile = primary.get("profile", {})
+        primary_score = number(primary.get("score"))
+    else:
+        primary_profile = {
+            "key": dna_raw.get("key", "UNKNOWN"),
+            "title": dna_raw.get("title", "UNKNOWN PROFILE"),
+            "description": dna_raw.get(
+                "description",
+                "No DNA profile available."
+            ),
+        }
+        primary_score = 0.0
+
+    strongest = {
+        **dna_raw,
+        "primary_profile": primary_profile,
+        "primary_score": primary_score,
+    }
     development = min(competencies, key=lambda item: item["score"])
     score_column = "Scout Score" if "Scout Score" in row.index else "Recruitment Score"
     if score_column not in row.index:
@@ -273,6 +303,90 @@ def build_report_context(
         )
     )
 
+    # --------------------------------------------------------
+    # TACTICAL FIT
+    # --------------------------------------------------------
+
+    tactical_competency_scores = {}
+
+    for competency_name, config in ROLE_MODELS[position_group].items():
+        score_column = _score_column(row, competency_name)
+        tactical_competency_scores[competency_name] = float(
+            row[score_column]
+        )
+
+    tactical_formations = []
+
+    for formation in ROLE_LIBRARY:
+
+        if position_group not in ROLE_LIBRARY[formation]:
+            continue
+
+        try:
+            role_results = evaluate_position_fit(
+                formation=formation,
+                position_group=position_group,
+                competencies=tactical_competency_scores,
+                archetype=strongest.get("archetype"),
+            )
+        except TacticalFitError:
+            continue
+
+        tactical_roles = []
+
+        for result in role_results:
+            tactical_roles.append({
+                "role_key": result["role_key"],
+                "role": result["role"],
+                "fit_score": float(result["fit_score"]),
+                "fit_display": f"{float(result['fit_score']):.1f}",
+                "eligible": bool(result["eligible"]),
+                "failed_minimums": result["failed_minimums"],
+            })
+
+        eligible_roles = [
+            role
+            for role in tactical_roles
+            if role["eligible"]
+        ]
+
+        best_role = (
+            eligible_roles[0]
+            if eligible_roles
+            else None
+        )
+
+        tactical_formations.append({
+            "formation": formation,
+            "roles": tactical_roles,
+            "best_role": best_role,
+        })
+
+    eligible_tactical_roles = [
+        {
+            "formation": formation["formation"],
+            **role,
+        }
+        for formation in tactical_formations
+        for role in formation["roles"]
+        if role["eligible"]
+    ]
+
+    best_tactical_fit = (
+        max(
+            eligible_tactical_roles,
+            key=lambda item: item["fit_score"],
+        )
+        if eligible_tactical_roles
+        else None
+    )
+
+    tactical_fit = {
+        "available": bool(tactical_formations),
+        "formations": tactical_formations,
+        "best_overall": best_tactical_fit,
+    }
+
     context = {
         "player": {
             "name": clean_text(row["Player"]),
@@ -300,6 +414,7 @@ def build_report_context(
         "player_dna": strongest,
         "development": development,
         "executive_summary": executive_summary,
+        "tactical_fit": tactical_fit,
     }
     minutes = integer(row.get("Minutes played"))
     matches_played = integer(row.get("Matches played"))

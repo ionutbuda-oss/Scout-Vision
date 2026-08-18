@@ -1,0 +1,134 @@
+<section class="report-page tactical-page">
+
+  <div class="tactical-header">
+
+    <div>
+      <span class="section-kicker">TACTICAL FIT</span>
+      <h2>Formation & role suitability</h2>
+      <p>
+        Role compatibility based on ScoutVision position models and weighted
+        competency profiles.
+      </p>
+    </div>
+
+    {% if tactical_fit.best_overall %}
+    <div class="tactical-best-card">
+      <span>BEST OVERALL FIT</span>
+      <strong>{{ tactical_fit.best_overall.formation }}</strong>
+      <b>{{ tactical_fit.best_overall.role }}</b>
+      <em>{{ tactical_fit.best_overall.fit_display }} / 100</em>
+    </div>
+    {% endif %}
+
+  </div>
+
+
+  <div class="tactical-player-strip">
+
+    <div>
+      <span>PLAYER</span>
+      <strong>{{ player.name }}</strong>
+    </div>
+
+    <div>
+      <span>POSITION MODEL</span>
+      <strong>{{ player.position_group }}</strong>
+    </div>
+
+    <div>
+      <span>IDENTITY</span>
+      <strong>{{ player_dna.primary_profile.title }}</strong>
+    </div>
+
+  </div>
+
+
+  <div class="formation-title">
+    FORMATION COMPATIBILITY
+  </div>
+
+
+  <div class="formation-grid">
+
+    {% for formation in tactical_fit.formations %}
+
+    <article class="formation-card">
+
+      <header>
+        <span>FORMATION</span>
+        <strong>{{ formation.formation }}</strong>
+      </header>
+
+      {% if formation.best_role %}
+
+      <div class="formation-score">
+        <span>BEST FIT</span>
+        <strong>{{ formation.best_role.fit_display }}</strong>
+      </div>
+
+      <div class="formation-role">
+        {{ formation.best_role.role }}
+      </div>
+
+      {% endif %}
+
+
+      <div class="role-list">
+
+      {% for role in formation.roles[:3] %}
+
+        <div class="role-row">
+
+          <div>
+            <strong>{{ role.role }}</strong>
+            <small>
+              {% if role.eligible %}
+              Eligible
+              {% else %}
+              Not eligible
+              {% endif %}
+            </small>
+          </div>
+
+          <b>{{ role.fit_display }}</b>
+
+        </div>
+
+      {% endfor %}
+
+      </div>
+
+    </article>
+
+    {% endfor %}
+
+  </div>
+
+
+  <div class="tactical-methodology">
+
+    <div>
+      <span>MODEL</span>
+      <strong>Weighted competency model</strong>
+    </div>
+
+    <div>
+      <span>ELIGIBILITY</span>
+      <strong>Role minimums applied</strong>
+    </div>
+
+    <div>
+      <span>USE</span>
+      <strong>Recruitment decision support</strong>
+    </div>
+
+  </div>
+
+
+  <div class="tactical-disclaimer">
+    Tactical Fit supports recruitment decisions alongside video analysis,
+    team principles and live scouting.
+  </div>
+
+
+</section>

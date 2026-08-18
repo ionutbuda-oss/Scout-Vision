@@ -14,6 +14,7 @@ DEFAULT_RANKINGS = Path("outputs/rankings/France_Ligue_3_U25_rankings.xlsx")
 DEFAULT_OUTPUT = Path("outputs/scouting_reports")
 
 
+
 def generate_report(
     *,
     rankings_file: Path,
@@ -24,7 +25,16 @@ def generate_report(
     if not rankings_file.exists():
         raise FileNotFoundError(rankings_file)
 
-    ranked = pd.read_excel(rankings_file, sheet_name="All Ranked")
+    try:
+        ranked = pd.read_excel(
+            rankings_file,
+            sheet_name="All Ranked",
+        )
+    except ValueError:
+        ranked = pd.read_excel(
+            rankings_file,
+            sheet_name="Global Ranked",
+        )
     matches = ranked.loc[
         ranked["Player"].astype(str).str.strip().str.casefold()
         == player_name.strip().casefold()
@@ -39,7 +49,7 @@ def generate_report(
         ranked_frame=ranked,
     )
     module_dir = Path(__file__).resolve().parent
-    template_path = module_dir / "templates_v3" / "recruitment_report_2pages.html"
+    template_path = module_dir / "templates_v3" / "scoutvision_master_3pages.html"
 
     slug = safe_filename(row["Player"])
     html_path = output_folder / f"{slug}.html"
@@ -47,6 +57,7 @@ def generate_report(
 
     render_html(template_path, context, html_path)
     render_pdf(html_path, pdf_path)
+
     return html_path, pdf_path
 
 

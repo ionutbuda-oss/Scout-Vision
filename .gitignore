@@ -53,3 +53,31 @@ __pycache__/
 
 # Development backups
 *.backup*
+
+# ScoutVision private data
+databases/**/*.xlsx
+databases/**/*.csv
+*.xlsx
+*.csv
+
+# ==================================================
+# SCOUTVISION PRIVATE DATA
+# ==================================================
+databases/
+outputs/
+*.xlsx
+*.csv
+
+# ==================================================
+# SCOUTVISION BACKUPS / TEMPORARY DEVELOPMENT FILES
+# ==================================================
+**/*_backup*
+**/*_before_*
+**/*backup*
+
+# Local historical report templates
+engine/reports/templates_v2/*_old.*
+engine/reports/templates_v3/*_2PAGE_PERFECT.*
+engine/reports/templates_v3/recruitment_report_page1_locked.*
+engine/reports/templates_v3/recruitment_report_single_page.html
+engine/reports/templates_v3/recruitment_report_two_pages.html
